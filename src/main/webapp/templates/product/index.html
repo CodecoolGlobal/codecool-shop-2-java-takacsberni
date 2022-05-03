@@ -49,6 +49,7 @@
                 </div>
                 <div class="card-body">
                     <div class="card-text">
+                        <p class="card-text" th:text="${prod.getSupplier().getName()}">Product supplier </p>
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">

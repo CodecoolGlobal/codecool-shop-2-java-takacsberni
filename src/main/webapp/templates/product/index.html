@@ -7,6 +7,8 @@
 
     <title>Pet Shop</title>
 
+    <!-- JavaScript: main.js-->
+    <script defer src="/static/js/main.js"></script>
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -45,7 +47,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Product categories
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="categoriesDropdownDiv">
                         <th:block th:each="category : ${all_categories}">
                             <a class="dropdown-item" href="#" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"></a>
                         </th:block>
@@ -55,7 +57,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="supplierDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Suppliers
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="suppliersDropdownDiv">
                         <th:block th:each="supplier : ${all_suppliers}">
                             <a class="dropdown-item" href="#" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
                         </th:block>

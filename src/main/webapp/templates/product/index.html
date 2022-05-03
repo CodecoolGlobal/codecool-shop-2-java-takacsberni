@@ -56,9 +56,9 @@
                         Suppliers
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <th:block th:each="supplier : ${all_suppliers}">
+                            <a class="dropdown-item" href="#" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
+                        </th:block>
                     </div>
                 </li>
             </ul>

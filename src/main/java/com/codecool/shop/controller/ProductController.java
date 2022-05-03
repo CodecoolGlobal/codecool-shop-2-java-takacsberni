@@ -8,6 +8,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.service.SupplierService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -26,13 +27,14 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+        ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
+        SupplierService supplierService = new SupplierService(supplierDataStore);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productService.getProductCategory(1));
         context.setVariable("all_categories", productService.getAllCategories());
-        context.setVariable("all_suppliers", productService.getAllSuppliers());
+        context.setVariable("all_suppliers", supplierService.getAllSuppliers());
         context.setVariable("products", productService.getProductsForCategory(1));
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();

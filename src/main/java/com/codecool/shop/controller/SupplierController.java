@@ -33,13 +33,10 @@ public class SupplierController {
             ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDao);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            String supplier = req.getParameter("supplier");
+            int supplierId = Integer.parseInt(req.getParameter("supplier_id"));
             WebContext context = new WebContext(req, resp, req.getServletContext());
-
-
-//            WebContext context = new WebContext(req, resp, req.getServletContext());
-//            context.setVariable("category", productService.getProductCategory(1));
-//            context.setVariable("products", productService.getProductsForCategory(1));
+            context.setVariable("supplier", productService.getSupplier(supplierId));
+            context.setVariable("products", productService.getProductsBySupplier(supplierId));
 
             // // Alternative setting of the template context
             // Map<String, Object> params = new HashMap<>();
@@ -49,4 +46,5 @@ public class SupplierController {
             engine.process("product/index.html", context, resp.getWriter());
         }
     }
+
 }

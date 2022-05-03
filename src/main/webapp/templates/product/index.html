@@ -35,6 +35,37 @@
 </div>
 
 <div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Product categories
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <th:block th:each="category : ${all_categories}">
+                            <a class="dropdown-item" href="#" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"></a>
+                        </th:block>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="supplierDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Suppliers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <th:block th:each="supplier : ${all_suppliers}">
+                            <a class="dropdown-item" href="#" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
+                        </th:block>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
     <div class="card">
         <strong th:text="${category.name}">Category Title</strong>
     </div>

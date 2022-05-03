@@ -1,10 +1,13 @@
-let categoriesDropdown = document.getElementById("categoriesDropdownDiv");
-let suppliersDropdown = document.getElementById("suppliersDropdownDiv");
+let init = {
+    getProductsBySupplier: async function (supplierId) {
+        let url = "/supplier/" + "?supplier_id=" + supplierId;
+        let data = await init.getData(url);
+        init.showData(data);
+    },
 
-for(let category of categoriesDropdown.children){
-    category.addEventListener('click', () => alert('Category clicked!'));
+    getData: async function (url) {
+        let response = await fetch(url);
+        return response.json();
+    }
 }
 
-for(let supplier of suppliersDropdown.children){
-    supplier.addEventListener('click', () => alert('Supplier clicked!'));
-}

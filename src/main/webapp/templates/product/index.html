@@ -46,9 +46,9 @@
                         Product categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <th:block th:each="category : ${all_categories}">
+                            <a class="dropdown-item" href="#" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"></a>
+                        </th:block>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

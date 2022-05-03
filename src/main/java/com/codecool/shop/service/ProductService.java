@@ -36,5 +36,7 @@ public class ProductService{
         return productsBySupplier;
     }
 
-
+    public List<ProductCategory> getAllCategories() {
+        return productCategoryDao.getAll();
+    }
 }

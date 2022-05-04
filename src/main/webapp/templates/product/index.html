@@ -55,7 +55,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="suppliersDropdownDiv">
                         <th:block th:each="supplier : ${all_suppliers}">
-                            <a class="dropdown-item" href="#" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
+                            <a class="dropdown-item" th:href="@{/supplier(supplier_id=${supplier.getId()})}" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
                         </th:block>
                     </div>
                 </li>
@@ -75,7 +75,8 @@
 
 
     <div class="card">
-        <strong th:text="${category.getName()}">Category Title</strong>
+        <strong th:if="${category != null}" th:text="${category.getName()}">Category Title</strong>
+        <strong th:if="${category == null}" th:text="${supplier.getName()}">Supplier name</strong>
     </div>
 
     <div id="products" class="row">

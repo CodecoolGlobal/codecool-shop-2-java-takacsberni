@@ -28,7 +28,6 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <script src='/static/js/main.js' defer></script>
 </head>
 
 <body>
@@ -50,7 +49,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="categoriesDropdownDiv">
                         <th:block th:each="category : ${all_categories}">
-                            <a class="dropdown-item" href="#" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"></a>
+                            <a class="dropdown-item"  th:href="@{/category(category_id=${category.getId()})}" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"> </a>
                         </th:block>
                     </div>
                 </li>
@@ -70,7 +69,7 @@
     </nav>
 
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:text="${category.getName()}">Category Title</strong>
     </div>
 
     <div id="products" class="row">

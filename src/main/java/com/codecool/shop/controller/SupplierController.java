@@ -9,6 +9,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.ProductService;
+import com.codecool.shop.service.SupplierService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -21,9 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierController {
     @WebServlet(urlPatterns = {"/supplier"})
-    public class ProductController extends HttpServlet {
+    public class SupplierController extends HttpServlet {
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,13 +31,16 @@ public class SupplierController {
             SupplierDao supplierDao = SupplierDaoMem.getInstance();
             ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
             ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDao);
+            SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+            SupplierService supplierService = new SupplierService(supplierDataStore);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             int supplierId = Integer.parseInt(req.getParameter("supplier_id"));
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("supplier", productService.getSupplier(supplierId));
             context.setVariable("products", productService.getProductsBySupplier(supplierId));
-
+            context.setVariable("all_categories", productService.getAllCategories());
+            context.setVariable("all_suppliers", supplierService.getAllSuppliers());
             // // Alternative setting of the template context
             // Map<String, Object> params = new HashMap<>();
             // params.put("category", productCategoryDataStore.find(1));
@@ -47,4 +50,3 @@ public class SupplierController {
         }
     }
 
-}

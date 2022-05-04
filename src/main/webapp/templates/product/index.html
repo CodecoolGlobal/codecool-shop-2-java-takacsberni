@@ -28,7 +28,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <script src='/static/js/main.js' defer></script>
+
 </head>
 
 <body>
@@ -96,7 +96,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success addToCart" th:href="@{/order(prod_name=${prod.getName()},prod_price=${prod.getPrice()})}" >Add to cart</a>
+                        <a class="btn btn-success addToCart" th:attr="data-prod_name=${prod.getName()}, data-prod_price=${prod.getPrice()}" >Add to cart</a>
                     </div>
                 </div>
             </div>

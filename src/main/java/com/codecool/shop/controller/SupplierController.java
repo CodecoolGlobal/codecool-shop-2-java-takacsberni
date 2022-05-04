@@ -28,10 +28,9 @@ import java.util.List;
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             ProductDao productDataStore = ProductDaoMem.getInstance();
-            SupplierDao supplierDao = SupplierDaoMem.getInstance();
             ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-            ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDao);
             SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+            ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
             SupplierService supplierService = new SupplierService(supplierDataStore);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

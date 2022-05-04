@@ -1,24 +1,22 @@
-let categoriesDropdown = document.getElementById("categoriesDropdownDiv");
-let suppliersDropdown = document.getElementById("suppliersDropdownDiv");
+let itemNumber = document.getElementById("itemNumber");
+let addToCartLink = document.getElementsByClassName("addToCart");
 
-for(let category of categoriesDropdown.children){
-    category.addEventListener('click', () => alert('Category clicked!'));
-}
-
-for(let supplier of suppliersDropdown.children){
-    supplier.addEventListener('click', () => init.getProductsBySupplier(supplier.dataset.id));
+for(let link of addToCartLink){
+    addToCartLink.addEventListener('click', init.addItemToCart)
 }
 
 let init = {
-    getProductsBySupplier: async function (supplierId) {
-        let url = "/supplier/" + "?supplier_id=" + supplierId;
-        let data = await init.getData(url);
-        init.showData(data);
+    addItemToCart: function () {
+        if(itemNumber.innerHTML === `<p></p>`){
+            itemNumber.innerHTML = `<p>1</p>`;
+        }
+        else{
+            itemNumber.innerHTML = `<p>${parseInt(itemNumber.innerText )+1}</p>`;
+        }
+
     },
 
-    getData: async function (url) {
-        let response = await fetch(url);
-        return response.json();
-    }
 }
+
+
 

@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
@@ -32,6 +33,12 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public Order find(int id) {
+
+        for(Order order : orders){
+            if(order.getId() == id){
+                return order;
+            }
+        }
         return null;
     }
 
@@ -43,5 +50,11 @@ public class OrderDaoMem implements OrderDao {
     @Override
     public List<Order> getAll() {
         return orders;
+    }
+
+    @Override
+    public List<LineItem> getLineItems(int orderId) {
+        Order order = this.find(orderId);
+        return order.getLineItems();
     }
 }

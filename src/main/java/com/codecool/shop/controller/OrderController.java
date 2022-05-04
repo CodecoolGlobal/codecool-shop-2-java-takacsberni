@@ -12,6 +12,7 @@ import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,12 +28,12 @@ public class OrderController extends HttpServlet{
     OrderService orderservice = new OrderService(orderDataStore);
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(IsOrderListEmpty()){
-            BigDecimal mockProductPrice = BigDecimal.valueOf(1200);
-            String mockProductName = "test name";
-            orderservice.addNewOrder(mockProductPrice, mockProductName);
-        };
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        BigDecimal productPrice = BigDecimal.valueOf(1200);//new BigDecimal(request.getParameter("prod_price"));
+        String productName = request.getParameter("prod_name");
+        orderservice.addNewOrder(productPrice, productName);
+        /* js: fetch ami most a hrefben van, response szerverről: az item numbert visszaküldeni és js-sel berakni*/
 
     }
 

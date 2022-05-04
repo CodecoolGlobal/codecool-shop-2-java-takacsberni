@@ -62,6 +62,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item ml-auto" id="itemNumber">
+                   <p></p>
+                </li>
                 <li class="nav-item ml-auto" id="shoppingCart">
                     <a class="nav-link" href="#"><img src="/static/img/shopping-cart-icon.png"></a>
                 </li>
@@ -93,7 +96,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <a class="btn btn-success addToCart" th:href="@{/order(prod_name=${prod.getName()},prod_price=${prod.getPrice()})}" >Add to cart</a>
                     </div>
                 </div>
             </div>

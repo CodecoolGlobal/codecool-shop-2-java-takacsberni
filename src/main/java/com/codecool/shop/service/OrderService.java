@@ -28,4 +28,8 @@ public class OrderService{
         orderDao.add(newOrder);
     }
 
+    public List<LineItem> getLineItems(int orderId){
+        return orderDao.getLineItems(orderId);
+    }
+
 }

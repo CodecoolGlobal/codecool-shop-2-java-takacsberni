@@ -9,6 +9,7 @@
 
     <!-- JavaScript: main.js-->
     <script defer src="/static/js/main.js"></script>
+    <script src="/static/css/custom.css"></script>
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -42,6 +43,25 @@
 </head>
 <body>
 <div th:replace="navbar.html :: copy"></div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="card-footer" id="total_price">  19 HUF </div>
+                        <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
+                            <li class="nav-item"> <i class="fas fa-credit-card mr-2"></i> Total price </li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
 
 <div class="container py-5">
     <div class="row">
@@ -90,10 +110,20 @@
                     </div> <!-- End -->
                     <!-- Paypal info -->
                     <div id="paypal" class="tab-pane fade pt-3">
-                        <h6 class="pb-2">Select your paypal account type</h6>
-                        <div class="form-group "> <label class="radio-inline"> <input type="radio" name="optradio" checked> Domestic </label> <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5">International </label></div>
-                        <p> <button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my Paypal</button> </p>
-                        <p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                        <h6 class="pb-2">Enter your account details</h6>
+                        <div class="form-group ">
+                            <label for="paypal_username">
+                                <h6>Paypal username</h6>
+                            </label>
+                            <input id="paypal_username" type="text" name="paypal_username" placeholder="Enter username here" required class="form-control ">
+                            <label for="paypal_password">
+                                <h6>PayPal password</h6>
+                            </label>
+                            <input id="paypal_password" type="text" name="paypal_password" placeholder="Enter password here" required class="form-control ">
+                        </div>
+
+
+                        <p> <button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Confirm Payment</button> </p>
                     </div> <!-- End -->
 
                     <!-- End -->

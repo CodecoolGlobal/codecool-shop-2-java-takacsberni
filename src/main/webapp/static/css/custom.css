@@ -60,3 +60,10 @@
 {
     margin: 0 0 11px;
 }
+
+#total_price{
+    background-color: dodgerblue;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}

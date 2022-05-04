@@ -50,8 +50,8 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Rabbit Cat", new BigDecimal("3000"), "USD", "The rabbit cat is the nicest little thing caused by the accident. (only if you don't mind that it eats only human meat)", cat, chernobylPetShop));
         productDataStore.add(new Product("Snail Cat", new BigDecimal("1000"), "USD", "The snail cat is the slowest animal, but when it sees a laser pointer it becomes the fastest animal in Chernobyl.", cat, chernobylPetShop));
         productDataStore.add(new Product("Pig Cat", new BigDecimal("6000"), "USD", "Pig cats are just like pigs with just a few differences. Tends to meow and also cleaner.", cat, chernobylPetShop));
-        productDataStore.add(new Product("Oppossum", new BigDecimal("49.9"), "HUF", "Playful oppossums - good choice for children! ", pocketPets, superPetStore));
-        productDataStore.add(new Product("Iguana", new BigDecimal("47900"), "HUF", "Amazing rockstar iguanas waiting for you!", reptiles, petSuppliesPlus));
         productDataStore.add(new Product("Bunny", new BigDecimal("8900"), "HUF", "Funny bunny for sale", smallMammals, smallPetSelect));
+        productDataStore.add(new Product("Iguana", new BigDecimal("47900"), "HUF", "Amazing rockstar iguanas waiting for you!", reptiles, petSuppliesPlus));
+        productDataStore.add(new Product("Oppossum", new BigDecimal("49.9"), "HUF", "Playful oppossums - good choice for children! ", pocketPets, superPetStore));
     }
 }

@@ -42,7 +42,7 @@ public class Initializer implements ServletContextListener {
         ProductCategory pocketPets = new ProductCategory("Pocket Pets", "Animals", "Pocket Pet refers to small animals such as guinea pigs, hamsters, hedgehogs, mice, rats, gerbils, chinchillas, and sugar gliders.");
         productCategoryDataStore.add(pocketPets);
         ProductCategory smallMammals = new ProductCategory("Small Mammals", "Animals", "Small mammals include a few animals that are not so small, such as rabbits and prairie dogs.");
-        productCategoryDataStore.add(pocketPets);
+        productCategoryDataStore.add(smallMammals);
 
 
         //setting up products and printing it

@@ -6,7 +6,7 @@ for(let category of categoriesDropdown.children){
 }
 
 for(let supplier of suppliersDropdown.children){
-    supplier.addEventListener('click', () => alert('Supplier clicked!'));
+    supplier.addEventListener('click', () => init.getProductsBySupplier(supplier.dataset.id));
 }
 
 let init = {

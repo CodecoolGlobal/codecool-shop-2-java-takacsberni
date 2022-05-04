@@ -1,22 +1,25 @@
-let itemNumber = document.getElementById("itemNumber");
+let itemNumberContainer = document.getElementById("itemNumber");
 let addToCartLink = document.getElementsByClassName("addToCart");
 
 for(let link of addToCartLink){
-    addToCartLink.addEventListener('click', init.addItemToCart)
+    link.addEventListener('click', addItemToCart);
 }
 
-let init = {
-    addItemToCart: function () {
-        if(itemNumber.innerHTML === `<p></p>`){
-            itemNumber.innerHTML = `<p>1</p>`;
-        }
-        else{
-            itemNumber.innerHTML = `<p>${parseInt(itemNumber.innerText )+1}</p>`;
-        }
-
-    },
+function addItemNumber(itemNumber) {
+    itemNumberContainer.innerHTML = '';
+    itemNumberContainer.innerHTML += `<p>${itemNumber}</p>`;
 
 }
+
+async function addItemToCart(){
+    fetch('/order')
+        .then(response => response.text())
+        .then((response) => {
+            addItemNumber(response)
+        })
+        .catch(err => console.log(err))
+}
+
 
 
 

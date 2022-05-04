@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 
 @WebServlet(urlPatterns = {"/order"})
@@ -33,7 +34,10 @@ public class OrderController extends HttpServlet{
         BigDecimal productPrice = BigDecimal.valueOf(1200);//new BigDecimal(request.getParameter("prod_price"));
         String productName = request.getParameter("prod_name");
         orderservice.addNewOrder(productPrice, productName);
+        int lineItemNumber = orderservice.getLineItems(1).size();
         /* js: fetch ami most a hrefben van, response szerverről: az item numbert visszaküldeni és js-sel berakni*/
+        PrintWriter out = response.getWriter();
+        out.println(lineItemNumber);
 
     }
 

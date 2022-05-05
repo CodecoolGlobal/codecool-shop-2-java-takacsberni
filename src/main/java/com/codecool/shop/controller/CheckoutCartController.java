@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/checkout_edit"})
+@WebServlet(urlPatterns = {"/checkout_cart"})
 
-public class CheckoutEditController extends HttpServlet {
+public class CheckoutCartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +42,7 @@ public class CheckoutEditController extends HttpServlet {
         // params.put("category", productCategoryDataStore.find(1));
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
-        engine.process("product/checkout_edit.html", context, resp.getWriter());
+        engine.process("product/checkout_cart.html", context, resp.getWriter());
 
     }
 

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,11 +73,12 @@ public class CheckoutCartController extends HttpServlet {
         parameters.put("shippingAddress", request.getParameter("shipping_address"));
         Order order = orderservice.getOrderById(1);
         order.setCustomerData(parameters);
+        response.setContentType("text/html");
+        PrintWriter pw=response.getWriter();
 
+        response.sendRedirect("/payment");
 
-
-
-
+        pw.close();
     }
 
 }

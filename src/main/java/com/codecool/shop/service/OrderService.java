@@ -31,6 +31,16 @@ public class OrderService{
         return orderDao.getLineItems(orderId);
     }
 
+    public BigDecimal getFullPrice(int orderId){
+        List<LineItem> items = getLineItems(orderId);
+        BigDecimal fullPrice = new BigDecimal(0);
+        for (LineItem item : items){
+            fullPrice = fullPrice.add(item.getProductPrice());
+        }
+
+        return fullPrice;
+    }
+
 
     public Order getOrderById(int id) {
         return orderDao.find(id);

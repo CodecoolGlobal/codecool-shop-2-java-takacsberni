@@ -1,12 +1,15 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.SupplierService;
 import org.thymeleaf.TemplateEngine;
@@ -22,6 +25,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/payment"})
 public class PaymentController extends HttpServlet {
 
+    OrderDao orderDataStore = OrderDaoMem.getInstance();
+    OrderService orderservice = new OrderService(orderDataStore);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -33,6 +39,7 @@ public class PaymentController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
+        context.setVariable("full_price", orderservice.getFullPrice(1));
         engine.process("product/payment.html", context, resp.getWriter());
 
     }

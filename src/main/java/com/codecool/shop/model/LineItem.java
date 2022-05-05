@@ -16,6 +16,18 @@ public class LineItem {
         this.productDescription = productDescription;
     }
 
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
     public int getQuantity() {
         return quantity;
     }

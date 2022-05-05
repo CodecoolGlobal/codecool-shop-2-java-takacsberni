@@ -69,8 +69,7 @@ public class EmailSendController extends HttpServlet {
 
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         OrderService orderservice = new OrderService(orderDataStore);
-        Map price = request.getParameterMap();
-        String data = price.toString();
+        String data = request.getParameterMap().toString() + order.getCustomerData();
         try {
             SendEmail.sendMail(data);
         } catch (Exception e) {

@@ -45,8 +45,9 @@ public class OrderController extends HttpServlet {
         BigDecimal productPrice = new BigDecimal(strProductPrice);
         String productDescription = request.getParameter("desc");
         String productName = request.getParameter("prod_name");
+        String supplier = request.getParameter("supplier");
 
-        addLineItemOrUpdateQuantity(productName, productPrice, productDescription);
+        addLineItemOrUpdateQuantity(productName, productPrice, productDescription, supplier);
 
         int lineItemNumber = lineItems.size();
         PrintWriter out = response.getWriter();
@@ -63,10 +64,10 @@ public class OrderController extends HttpServlet {
         return null;
     }
 
-    private void addLineItemOrUpdateQuantity(String productName, BigDecimal productPrice, String productDescription) {
+    private void addLineItemOrUpdateQuantity(String productName, BigDecimal productPrice, String productDescription, String supplier) {
         LineItem itemWithSameProduct = isProductAlreadyInOrder(productName);
         if (itemWithSameProduct == null) {
-            orderservice.addLineItem(productPrice, productName, productDescription, currentOrder);
+            orderservice.addLineItem(productPrice, productName, productDescription, currentOrder, supplier);
         } else {
             itemWithSameProduct.setQuantity(1); // adds one to quantity
         }

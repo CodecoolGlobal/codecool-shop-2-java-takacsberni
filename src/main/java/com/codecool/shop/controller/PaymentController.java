@@ -18,33 +18,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/category"})
-public class CategoryController extends HttpServlet {
+@WebServlet(urlPatterns = {"/payment"})
+public class PaymentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
+        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
         SupplierService supplierService = new SupplierService(supplierDataStore);
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        String categoryId = (req.getParameter("category_id"));
-        context.setVariable("category", productService.getProductCategory(Integer.parseInt(categoryId)));
-        context.setVariable("products", productService.getProductsForCategory(Integer.parseInt(categoryId)));
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
-        // // Alternative setting of the template context
-        // Map<String, Object> params = new HashMap<>();
-        // params.put("category", productCategoryDataStore.find(1));
-        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        // context.setVariables(params);
-        resp.setCharacterEncoding("UTF-8");
+        engine.process("product/payment.html", context, resp.getWriter());
 
-        engine.process("product/index.html", context, resp.getWriter());
     }
+
+
 }

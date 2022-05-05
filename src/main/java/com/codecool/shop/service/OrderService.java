@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderService{
+
     private OrderDao orderDao;
+    private int currentOrderId = 1;
 
     public OrderService(OrderDao orderDao) {
         this.orderDao = orderDao;
@@ -40,6 +42,10 @@ public class OrderService{
         }
 
         return fullPrice;
+    }
+
+    public int getCurrentOrderId() {
+        return currentOrderId;
     }
 
 

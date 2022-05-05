@@ -35,7 +35,8 @@ public class OrderService{
         List<LineItem> items = getLineItems(orderId);
         BigDecimal fullPrice = new BigDecimal(0);
         for (LineItem item : items){
-            fullPrice = fullPrice.add(item.getProductPrice());
+            BigDecimal linePrice = item.getProductPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+            fullPrice = fullPrice.add(linePrice);
         }
 
         return fullPrice;

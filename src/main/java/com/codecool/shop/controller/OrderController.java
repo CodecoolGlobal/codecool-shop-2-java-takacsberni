@@ -7,6 +7,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
@@ -25,13 +26,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/order"})
-public class OrderController extends HttpServlet{
+public class OrderController extends HttpServlet {
 
     OrderDao orderDataStore = OrderDaoMem.getInstance();
     OrderService orderservice = new OrderService(orderDataStore);
     int currentOrder = 1;
+    List<LineItem> lineItems = orderservice.getLineItems(currentOrder);
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,18 +45,38 @@ public class OrderController extends HttpServlet{
         BigDecimal productPrice = new BigDecimal(strProductPrice);
         String productDescription = request.getParameter("desc");
         String productName = request.getParameter("prod_name");
-        orderservice.addLineItem(productPrice, productName, productDescription, currentOrder);
-        int lineItemNumber = orderservice.getLineItems(1).size();
+
+        addLineItemOrUpdateQuantity(productName, productPrice, productDescription);
+
+        int lineItemNumber = lineItems.size();
         PrintWriter out = response.getWriter();
         out.println(lineItemNumber);
 
     }
 
-    private boolean IsOrderListEmpty() {
-        if(orderservice.getAllOrders() == null){
-            return true;
+    private LineItem isProductAlreadyInOrder(String productName) {
+        for (LineItem item : lineItems) {
+            if (item.getProductName().equals(productName)) {
+                return item;
+            }
         }
-        else{
+        return null;
+    }
+
+    private void addLineItemOrUpdateQuantity(String productName, BigDecimal productPrice, String productDescription) {
+        LineItem itemWithSameProduct = isProductAlreadyInOrder(productName);
+        if (itemWithSameProduct == null) {
+            orderservice.addLineItem(productPrice, productName, productDescription, currentOrder);
+        } else {
+            itemWithSameProduct.setQuantity(1); // adds one to quantity
+        }
+
+    }
+
+    private boolean IsOrderListEmpty() {
+        if (orderservice.getAllOrders() == null) {
+            return true;
+        } else {
             return false;
         }
     }

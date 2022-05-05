@@ -44,6 +44,7 @@
 <body>
 <div th:replace="navbar.html :: copy"></div>
 
+
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 mx-auto">
@@ -62,7 +63,7 @@
 
 
 
-
+<form action="/send_email" method="post">
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 mx-auto">
@@ -104,7 +105,7 @@
                                         </label> <input type="text" required class="form-control"> </div>
                                     </div>
                                 </div>
-                                <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button> </div>
+                                <div class="card-footer"> <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button> </div>
                             </form>
                         </div>
                     </div> <!-- End -->
@@ -123,7 +124,7 @@
                         </div>
 
 
-                        <p> <a href="/confirmation"><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Confirm Payment</button></a> </p>
+                        <p> <a href="/confirmation"><button type="submit" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Confirm Payment</button></a> </p>
                     </div> <!-- End -->
 
                     <!-- End -->
@@ -133,6 +134,8 @@
     </div>
 </div>
 </div>
+</form>
+
 
 <div th:replace="footer.html :: copy"></div>
 

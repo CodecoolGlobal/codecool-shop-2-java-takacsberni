@@ -33,7 +33,7 @@ public class OrderController extends HttpServlet {
 
     OrderDao orderDataStore = OrderDaoMem.getInstance();
     OrderService orderservice = new OrderService(orderDataStore);
-    int currentOrder = 1;
+    int currentOrder = orderservice.getCurrentOrderId();
     List<LineItem> lineItems = orderservice.getLineItems(currentOrder);
 
 
@@ -71,14 +71,6 @@ public class OrderController extends HttpServlet {
             itemWithSameProduct.setQuantity(1); // adds one to quantity
         }
 
-    }
-
-    private boolean IsOrderListEmpty() {
-        if (orderservice.getAllOrders() == null) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
 

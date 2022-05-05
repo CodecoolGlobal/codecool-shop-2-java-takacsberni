@@ -22,9 +22,9 @@ public class OrderService{
         return orderDao.getAll();
     }
 
-    public void addLineItem(BigDecimal productPrice, String productName, String productDescription, int orderId){
+    public void addLineItem(BigDecimal productPrice, String productName, String productDescription, int orderId, String supplier){
         int defaultQuantity = 1;
-        LineItem item = new LineItem(defaultQuantity, productPrice, productName, productDescription);
+        LineItem item = new LineItem(defaultQuantity, productPrice, productName, productDescription, supplier);
         Order order = orderDao.find(orderId);
         order.addLineItem(item);
     }

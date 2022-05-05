@@ -15,7 +15,8 @@ async function addItemToCart(event){
     let prodName = event.target.dataset.name
     let prodPrice = event.target.dataset.price
     let description = event.target.dataset.desc
-    fetch('/order?prod_name=' + prodName + '&prod_price=' + prodPrice + '&desc=' + description)
+    let supplier = event.target.dataset.supplier
+    fetch('/order?prod_name=' + prodName + '&prod_price=' + prodPrice + '&desc=' + description + '&supplier=' + supplier)
         .then(response => response.text())
         .then((response) => {
             addItemNumber(response)

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     /* Set rates + misc */
-    var taxRate = 0.05;
+    var taxRate = 0.27;
     var shippingRate = 15.00;
     var fadeTime = 300;
 

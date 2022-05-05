@@ -8,12 +8,15 @@ public class LineItem {
     private BigDecimal productPrice;
     private String productName;
     private String productDescription;
+    private String supplier;
 
-    public LineItem(int quantity, BigDecimal productPrice, String productName, String productDescription) {
+
+    public LineItem(int quantity, BigDecimal productPrice, String productName, String productDescription, String supplier) {
         this.quantity = quantity;
         this.productPrice = productPrice;
         this.productName = productName;
         this.productDescription = productDescription;
+        this.supplier = supplier;
     }
 
     public BigDecimal getProductPrice() {
@@ -34,5 +37,10 @@ public class LineItem {
 
     public void setQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+
+    public String getSupplier() {
+        return supplier;
     }
 }

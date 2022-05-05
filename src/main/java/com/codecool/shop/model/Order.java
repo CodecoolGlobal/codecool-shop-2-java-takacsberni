@@ -9,6 +9,7 @@ import java.util.List;
 public class Order {
     private int id;
     private List <LineItem> lineItems = new ArrayList<>();
+
     private HashMap<String, String> customerData;
 
 
@@ -40,5 +41,9 @@ public class Order {
 
     public void setCustomerData(HashMap<String, String> customerData) {
         this.customerData = customerData;
+    }
+
+    public HashMap<String, String> getCustomerData() {
+        return customerData;
     }
 }

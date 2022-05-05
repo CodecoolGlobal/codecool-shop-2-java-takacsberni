@@ -10,6 +10,7 @@ import java.util.List;
 
 public class OrderDaoMem implements OrderDao {
 
+
     private List<Order> orders = new ArrayList<>();
     private static OrderDaoMem instance = null;
 
@@ -25,6 +26,9 @@ public class OrderDaoMem implements OrderDao {
         return instance;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     @Override
     public void add(Order order) {

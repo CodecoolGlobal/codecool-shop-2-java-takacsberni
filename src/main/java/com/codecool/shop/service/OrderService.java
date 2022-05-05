@@ -20,12 +20,11 @@ public class OrderService{
         return orderDao.getAll();
     }
 
-    public void addNewOrder(BigDecimal productPrice, String productName){
+    public void addLineItem(BigDecimal productPrice, String productName, String productDescription, int orderId){
         int defaultQuantity = 1;
-        LineItem item = new LineItem(defaultQuantity, productPrice, productName);
-        int orderId = getAllOrders().size() + 1;
-        Order newOrder = new Order(orderId, item);
-        orderDao.add(newOrder);
+        LineItem item = new LineItem(defaultQuantity, productPrice, productName, productDescription);
+        Order order = orderDao.find(orderId);
+        order.addLineItem(item);
     }
 
     public List<LineItem> getLineItems(int orderId){

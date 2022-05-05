@@ -27,15 +27,16 @@ public class OrderController extends HttpServlet{
 
     OrderDao orderDataStore = OrderDaoMem.getInstance();
     OrderService orderservice = new OrderService(orderDataStore);
+    int currentOrder = 1;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         BigDecimal productPrice = BigDecimal.valueOf(1200);//new BigDecimal(request.getParameter("prod_price"));
-        String productName = request.getParameter("prod_name");
-        orderservice.addNewOrder(productPrice, productName);
+        String productName = "cat";
+        String productDescription = "cute";
+        orderservice.addLineItem(productPrice, productName, productDescription, currentOrder);
         int lineItemNumber = orderservice.getLineItems(1).size();
-        /* js: fetch ami most a hrefben van, response szerverről: az item numbert visszaküldeni és js-sel berakni*/
         PrintWriter out = response.getWriter();
         out.println(lineItemNumber);
 

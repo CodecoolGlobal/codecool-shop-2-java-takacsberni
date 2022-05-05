@@ -7,9 +7,8 @@ public class Order {
     private int id;
     private List <LineItem> lineItems = new ArrayList<>();
 
-    public Order(int id, LineItem lineItem) {
+    public Order(int id) {
         this.id = id;
-        lineItems.add(lineItem);
     }
 
     public int getId() {

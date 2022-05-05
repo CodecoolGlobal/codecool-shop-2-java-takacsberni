@@ -1,14 +1,20 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.SupplierService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -18,10 +24,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/checkout_cart"})
 
 public class CheckoutCartController extends HttpServlet {
+    OrderDao orderDataStore = OrderDaoMem.getInstance();
+    OrderService orderservice = new OrderService(orderDataStore);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,6 +53,29 @@ public class CheckoutCartController extends HttpServlet {
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
         engine.process("product/checkout_cart.html", context, resp.getWriter());
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HashMap<String, String> parameters = new HashMap<>();
+        parameters.put("name", request.getParameter("name"));
+        parameters.put("email", request.getParameter("email_address"));
+        parameters.put("phone", request.getParameter("phone_number"));
+        parameters.put("billingCountry", request.getParameter("billing_country"));
+        parameters.put("billingCity", request.getParameter("billing_city"));
+        parameters.put("billingZipCode", request.getParameter("billing_zipcode"));
+        parameters.put("billingAddress", request.getParameter("billing_address"));
+        parameters.put("shippingCountry", request.getParameter("shipping_country"));
+        parameters.put("shippingCity", request.getParameter("shipping_city"));
+        parameters.put("shippingZipCode", request.getParameter("shipping_zipcode"));
+        parameters.put("shippingAddress", request.getParameter("shipping_address"));
+        Order order = orderservice.getOrderById(1);
+        order.setCustomerData(parameters);
+
+
+
+
 
     }
 

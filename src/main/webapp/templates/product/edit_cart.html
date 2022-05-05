@@ -41,14 +41,14 @@
         </div>
         <div class="product-price" th:text="${item.getProductPrice()}">  </div>
         <div class="product-quantity">
-            <input type="number" value="1" min="1">
+            <input type="number" th:attr="value = ${item.getQuantity()}" min="1">
         </div>
         <div class="product-removal">
             <button class="remove-product">
                 Remove
             </button>
         </div>
-        <div class="product-line-price" th:text="${item.getProductPrice()}"> </div>
+        <div class="product-line-price" th:text="${item.getProductPrice()*item.getQuantity()}"> </div>
     </div>
     </th:block>
 

@@ -30,6 +30,138 @@
 <body>
 <div th:replace="navbar.html :: copy"></div>
 
+<div class="container py-4">
+    <div class="card border-0">
+        <div class="small p-4 d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-row align-items-center">
+                <span class="circle"><i class="bx bx-check"></i></span> <span class="ms-1">Shipping</span>
+            </div>
+            <div class="d-flex flex-row align-items-center ms-4">
+                <span class="circle"><i class="bx bx-check"></i></span> <span class="ms-1">Payment</span>
+            </div>
+            <div class="d-flex flex-row align-items-center ms-4">
+                <span class="circle"><i class="bx bx-check"></i></span> <span class="ms-1">Option</span>
+            </div>
+            <div class="d-flex flex-row align-items-center ms-4">
+                <span class="circle circle-final"><small>4</small></span> <span class="ms-1 fw-bolder">Confirmation</span>
+            </div>
+        </div>
+        <div class="order-details p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="font-8 order-confirmation">Order Confirmation</span>
+                <div class="d-flex align-items-center">
+                    <span> <small class="text-sm font-8">Order Total</small> <span class="fw-bold font-8">$5585.56</span> </span> <button class="btn btn-success btn-sm px-4 ms-2 font-8">Place Order</button>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="card border-0 p-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center">
+                                    <span class="fw-bolder">Your information</span> <a onclick="setSelectedTestPlan('information-text')" href="javascript:void(0);" class="text-decoration-none">edit</a>
+                                </div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold">Ping Pong</span>
+                                    <p id="information-text" contenteditable="true">Lorem Ipsum Generator</p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center"><span class="fw-bolder">Payments</span> <a href="#" class="text-decoration-none">edit</a></div>
+                                <div class="mt-2 height-100">
+                                    <img src="https://i.imgur.com/W4JXmST.png" width="40" />
+                                    <p>Visa card ending in 2223</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center"><span class="fw-bolder">Shipping Address</span> <a href="#" class="text-decoration-none">edit</a></div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold">Ping Pong</span>
+                                    <p contenteditable="true">
+                                        710 Miniva Island Blvd,<br />
+                                        Apt 210,<br />
+                                        San Mateo,CA,94043<br />
+                                        United States<br />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center"><span class="fw-bolder">Billing Address</span> <a href="#" class="text-decoration-none">edit</a></div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold">Ping Pong</span>
+                                    <p contenteditable="true">
+                                        710 Miniva Island Blvd,<br />
+                                        Apt 210,<br />
+                                        San Mateo,CA,94043<br />
+                                        United States<br />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card table-responsive">
+                <table class="table table-borderless border-0" width="100%">
+                    <thead class="border-bottom">
+                    <tr>
+                        <th width="50%" class="text-center">Item</th>
+                        <th width="15%">Retailer</th>
+                        <th width="20%">Attributes</th>
+                        <th width="20%">Quantity</th>
+                        <th width="15%">Shipping</th>
+                        <th width="15%">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="p-1 d-flex flex-row">
+                                <img src="https://i.imgur.com/tMWyCOI.jpg" width="60" height="60" />
+                                <div class="d-flex flex-column">
+                                    <h6 class="mb-0">Marni</h6>
+                                    <span class="font-2">Yellow truck bag</span> <a class="text-decoration-none font-2 cursor-pointer">remove</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Marni</td>
+                        <td>
+                            <div class="d-flex flex-column font-2">
+                                <span>Color: <small class="fw-bold">Yellow</small></span> <span>Size: <small class="fw-bold">OneSize</small></span>
+                            </div>
+                        </td>
+                        <td>1</td>
+                        <td>$15.00</td>
+                        <td>$2160.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="p-1 d-flex flex-row">
+                                <img src="https://i.imgur.com/fltcm5x.jpg" width="60" height="60" />
+                                <div class="d-flex flex-column">
+                                    <h6 class="mb-0">Tron</h6>
+                                    <span class="font-2">Black Laptop bag</span> <a class="text-decoration-none font-2 cursor-pointer">remove</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Tron</td>
+                        <td>
+                            <div class="d-flex flex-column font-2">
+                                <span>Color: <small class="fw-bold">Black</small></span> <span>Size: <small class="fw-bold">OneSize</small></span>
+                            </div>
+                        </td>
+                        <td>1</td>
+                        <td>$18.00</td>
+                        <td>$2260.00</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

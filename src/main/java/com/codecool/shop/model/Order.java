@@ -1,11 +1,14 @@
 package com.codecool.shop.model;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     private int id;
     private List <LineItem> lineItems = new ArrayList<>();
+    public Gson gson = new Gson();
 
     public Order(int id) {
         this.id = id;

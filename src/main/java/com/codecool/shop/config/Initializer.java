@@ -60,5 +60,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Oppossum", new BigDecimal("49.9"), "HUF", "Playful oppossums - good choice for children! ", pocketPets, superPetStore));
         productDataStore.add(new Product("Iguana", new BigDecimal("47900"), "HUF", "Amazing rockstar iguanas waiting for you!", reptiles, petSuppliesPlus));
         productDataStore.add(new Product("Bunny", new BigDecimal("8900"), "HUF", "Funny bunny for sale", smallMammals, smallPetSelect));
+
+
     }
 }

@@ -31,4 +31,9 @@ public class OrderService{
         return orderDao.getLineItems(orderId);
     }
 
+
+    public Order getOrderById(int id) {
+        return orderDao.find(id);
+    }
+
 }

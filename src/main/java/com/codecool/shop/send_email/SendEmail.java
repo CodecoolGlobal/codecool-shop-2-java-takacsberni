@@ -42,7 +42,7 @@ public class SendEmail {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
-            message.setText("Verification link...");
+            message.setText("This is a message from the test");
             Transport.send(message);
 
         }catch(Exception e){

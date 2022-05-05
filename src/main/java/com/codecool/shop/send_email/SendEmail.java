@@ -9,19 +9,17 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class SendEmail {
-    private String userEmail;
-    private String hash;
+    private static String userEmail;
 
-    public SendEmail(String userEmail, String hash) {
+    public SendEmail(String userEmail) {
         super();
         this.userEmail = userEmail;
-        this.hash = hash;
     }
 
-    public void sendMail()
+    public static void sendMail()
     {
-        String email = ""; // sender email
-        String password = ""; // sender password
+        String email = "petshopgirlstest@gmail.com"; // sender email
+        String password = "cicanyuszi"; // sender password
 
         Properties properties = new Properties();
 
@@ -45,7 +43,6 @@ public class SendEmail {
             message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setText("Verification link...");
-            message.setText("Click here :: " + "http://localhost:8080/Send-Email-In-Java-With-Verification/AccountActivate?key1=" + userEmail+"$key2=" + hash);
             Transport.send(message);
 
         }catch(Exception e){

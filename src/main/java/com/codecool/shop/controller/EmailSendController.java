@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.send_email.SendEmail;
+import com.codecool.shop.service.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/send_email"})
 public class EmailSendController extends HttpServlet {
@@ -16,16 +20,20 @@ public class EmailSendController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         SendEmail sendEmail = new SendEmail("takacsberni@gmail.com");
 
-        StringBuilder buffer = new StringBuilder();
-        BufferedReader reader = req.getReader();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line);
-            buffer.append(System.lineSeparator());
-        }
-        String data = buffer.toString();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+        OrderService orderservice = new OrderService(orderDataStore);
+        List price = orderservice.getAllOrders();
+
+//        StringBuilder buffer = new StringBuilder();
+//        BufferedReader reader = req.getReader();
+//        String line;
+//        while ((line = reader.readLine()) != null) {
+//            buffer.append(line);
+//            buffer.append(System.lineSeparator());
+//        }
+        String data = price.toString();
         try {
-            SendEmail.sendMail();
+            SendEmail.sendMail(data);
         } catch (Exception e) {
             e.printStackTrace();
         }

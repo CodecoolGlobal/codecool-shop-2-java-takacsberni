@@ -16,7 +16,7 @@ public class SendEmail {
         this.userEmail = userEmail;
     }
 
-    public static void sendMail()
+    public static void sendMail(String data)
     {
         String email = "petshopgirlstest@gmail.com"; // sender email
         String password = "cicanyuszi"; // sender password
@@ -43,6 +43,8 @@ public class SendEmail {
             message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setText("This is a message from the test");
+            message.setText(data);
+
             Transport.send(message);
 
         }catch(Exception e){

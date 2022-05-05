@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Pet Shop</title>
+
+    <!-- JavaScript: main.js-->
+    <script defer src="/static/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/checkout_edit.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="navbar.html :: copy"></div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="form-group col-md-4 col-md-offset-5 align-center ">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="input" class="form-control" id="name" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <label for="email_address">Email Address</label>
+            <input type="email" class="form-control" id="email_address" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="input" class="form-control" id="phone_number" placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+            <h6>Billing Address</h6>
+                <label for="billing_country">Country</label>
+                <input type="input" class="form-control" id="billing_country" placeholder="Country">
+                <label for="billing_city">City</label>
+                <input type="input" class="form-control" id="billing_city" placeholder="City">
+                <label for="billing_zipcode">Zipcode</label>
+                <input type="input" class="form-control" id="billing_zipcode" placeholder="Zipcode">
+                <label for="billing_address">Address</label>
+                <input type="input" class="form-control" id="billing_address" placeholder="Address">
+            </div>
+        <div class="form-group">
+            <h6>Shipping Address</h6>
+            <label for="billing_country">Country</label>
+            <input type="input" class="form-control" id="shipping_country" placeholder="Country">
+            <label for="billing_city">City</label>
+            <input type="input" class="form-control" id="shipping_city" placeholder="City">
+            <label for="billing_zipcode">Zipcode</label>
+            <input type="input" class="form-control" id="shipping_zipcode" placeholder="Zipcode">
+            <label for="billing_address">Address</label>
+            <input type="input" class="form-control" id="shipping_address" placeholder="Address">
+        </div>
+
+            <button type="submit" class="btn btn-primary">Go to Payment</button>
+        </div>
+    </div>
+</div>
+</form>
+
+
+<div th:replace="footer.html :: copy"></div>
+
+
+</body>
+</html>

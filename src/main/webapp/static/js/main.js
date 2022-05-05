@@ -14,7 +14,7 @@ function addItemNumber(itemNumber) {
 async function addItemToCart(event){
     let prodName = event.target.dataset.name
     let prodPrice = event.target.dataset.price
-    let description = event.target.dataset.description
+    let description = event.target.dataset.desc
     fetch('/order?prod_name=' + prodName + '&prod_price=' + prodPrice + '&desc=' + description)
         .then(response => response.text())
         .then((response) => {

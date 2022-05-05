@@ -9,6 +9,7 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/checkout_cart"})
@@ -41,13 +43,14 @@ public class CheckoutCartController extends HttpServlet {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
         SupplierService supplierService = new SupplierService(supplierDataStore);
-
+        List<LineItem> items = orderservice.getLineItems(orderservice.getCurrentOrderId());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productService.getProductCategory(1));
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
         context.setVariable("products", productService.getProductsForCategory(1));
+        context.setVariable("items", items);
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));
@@ -71,7 +74,7 @@ public class CheckoutCartController extends HttpServlet {
         parameters.put("shippingCity", request.getParameter("shipping_city"));
         parameters.put("shippingZipCode", request.getParameter("shipping_zipcode"));
         parameters.put("shippingAddress", request.getParameter("shipping_address"));
-        Order order = orderservice.getOrderById(1);
+        Order order = orderservice.getOrderById(orderservice.getCurrentOrderId());
         order.setCustomerData(parameters);
         response.setContentType("text/html");
         PrintWriter pw=response.getWriter();

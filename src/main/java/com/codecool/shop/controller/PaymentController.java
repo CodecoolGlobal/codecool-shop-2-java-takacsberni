@@ -9,6 +9,7 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.SupplierService;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/payment"})
 public class PaymentController extends HttpServlet {
@@ -37,9 +39,11 @@ public class PaymentController extends HttpServlet {
         SupplierService supplierService = new SupplierService(supplierDataStore);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        List<LineItem> items = orderservice.getLineItems(orderservice.getCurrentOrderId());
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
         context.setVariable("full_price", orderservice.getFullPrice(1));
+        context.setVariable("items", items);
         engine.process("product/payment.html", context, resp.getWriter());
 
     }

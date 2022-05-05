@@ -48,7 +48,7 @@ public class CategoryController extends HttpServlet {
         context.setVariable("products", productService.getProductsForCategory(Integer.parseInt(categoryId)));
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
-        context.setVariable("item_number", lineItems.size());
+        context.setVariable("items", orderservice.getLineItems(orderservice.getCurrentOrderId()));
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));

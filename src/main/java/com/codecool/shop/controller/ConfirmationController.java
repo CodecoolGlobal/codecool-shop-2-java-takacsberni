@@ -40,10 +40,10 @@ public class ConfirmationController extends HttpServlet {
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         OrderService orderservice = new OrderService(orderDataStore);
 
-        List<LineItem> items = orderservice.getLineItems(1);
+        List<LineItem> items = orderservice.getLineItems(orderservice.getCurrentOrderId());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        HashMap<String, String> customerData = orderservice.getOrderById(1).getCustomerData();
+        HashMap<String, String> customerData = orderservice.getOrderById(orderservice.getCurrentOrderId()).getCustomerData();
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
         context.setVariable("items", items);

@@ -50,7 +50,7 @@ import java.util.List;
             context.setVariable("products", productService.getProductsBySupplier(supplierId));
             context.setVariable("all_categories", productService.getAllCategories());
             context.setVariable("all_suppliers", supplierService.getAllSuppliers());
-            context.setVariable("item_number", lineItems.size());
+            context.setVariable("items", lineItems);
             // // Alternative setting of the template context
             // Map<String, Object> params = new HashMap<>();
             // params.put("category", productCategoryDataStore.find(1));

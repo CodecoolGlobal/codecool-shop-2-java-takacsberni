@@ -25,47 +25,19 @@ public class EmailSendController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        SendEmail sendEmail = new SendEmail("takacsberni@gmail.com");
 
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-        OrderService orderservice = new OrderService(orderDataStore);
-        List price = orderservice.getAllOrders();
-
-//        StringBuilder buffer = new StringBuilder();
-//        BufferedReader reader = req.getReader();
-//        String line;
-//        while ((line = reader.readLine()) != null) {
-//            buffer.append(line);
-//            buffer.append(System.lineSeparator());
-//        }
-        String data = price.toString();
-        try {
-            SendEmail.sendMail(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("name", request.getParameter("name"));
-        parameters.put("email", request.getParameter("email_address"));
-        parameters.put("phone", request.getParameter("phone_number"));
-        parameters.put("billingCountry", request.getParameter("billing_country"));
-        parameters.put("billingCity", request.getParameter("billing_city"));
-        parameters.put("billingZipCode", request.getParameter("billing_zipcode"));
-        parameters.put("billingAddress", request.getParameter("billing_address"));
-        parameters.put("shippingCountry", request.getParameter("shipping_country"));
-        parameters.put("shippingCity", request.getParameter("shipping_city"));
-        parameters.put("shippingZipCode", request.getParameter("shipping_zipcode"));
-        parameters.put("shippingAddress", request.getParameter("shipping_address"));
         Order order = orderservice.getOrderById(1);
-        order.setCustomerData(parameters);
+        HashMap orderDetails = order.getCustomerData();
+        order.setCustomerData(orderDetails);
         response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
         PrintWriter pw=response.getWriter();
 
-        SendEmail sendEmail = new SendEmail("takacsberni@gmail.com");
+        SendEmail sendEmail = new SendEmail(String.valueOf(orderDetails.get("email")));
 
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         OrderService orderservice = new OrderService(orderDataStore);

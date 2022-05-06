@@ -37,13 +37,16 @@ public class EmailSendController extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter pw=response.getWriter();
 
-        SendEmail sendEmail = new SendEmail(String.valueOf(orderDetails.get("email")));
+        SendEmail sendEmail = new SendEmail(String.valueOf(orderDetails.get("email"))); //email address given by the user / form
 
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         OrderService orderservice = new OrderService(orderDataStore);
-        String data = request.getParameterMap().toString() + order.getCustomerData();
+        Map customerDataMap = request.getParameterMap();
+        HashMap customerData = order.getCustomerData();
+        String emailData = convertMapToHTML(customerDataMap, customerData);
+//        String emailData = request.getParameterMap().toString() + order.getCustomerData();
         try {
-            SendEmail.sendMail(data);
+            SendEmail.sendMail(emailData);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,6 +54,16 @@ public class EmailSendController extends HttpServlet {
         response.sendRedirect("/confirmation");
 
         pw.close();
+    }
+
+    private String convertMapToHTML(Map customerDataMap, HashMap customerData){
+
+        //TODO: akkor itt meg kéne megoldani, hogy HTML formátumot adjon vissza
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(customerDataMap.toString() + customerData.toString());
+
+        return stringBuilder.toString();
     }
 
 }

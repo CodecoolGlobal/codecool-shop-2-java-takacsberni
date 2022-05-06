@@ -1,9 +1,4 @@
-package com.codecool.shop.send_email;
-
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.service.OrderService;
+package com.codecool.shop.utils;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -11,7 +6,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.HashMap;
 import java.util.Properties;
 
 public class SendEmail {
@@ -47,8 +41,12 @@ public class SendEmail {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
-            message.setText("This is a message from the test");
-            message.setText(emailData);
+            message.setSubject("Confirmation email from Pet Shop");
+//            message.setText(emailData);
+            message.setContent(
+                    emailData,
+                    "text/html");
+
 
             Transport.send(message);
 

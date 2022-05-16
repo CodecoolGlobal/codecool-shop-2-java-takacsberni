@@ -5,8 +5,9 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Codecool Shop</title>
+    <title>Pet Shop</title>
 
+    <script defer src="/static/js/main.js"></script>
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -26,22 +27,28 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
 </head>
 
 <body>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div class="jumbotron text-center background">
+    <img src="https://www.coolgenerator.com/Data/Textdesign/202205/812ad90ddfbebb4b184353bf3015c486.png">
+    <div th:replace="navbar.html :: copy"></div>
 </div>
 
 <div class="container">
+
+
+
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:if="${category != null}" th:text="${category.getName()}">Category Title</strong>
+        <strong th:if="${category == null}" th:text="${supplier.getName()}">Supplier name</strong>
     </div>
 
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
+        <div class="col col-sm-12 col-md-6 col-lg-4 flex" th:each="prod,iterStat : ${products}">
+            <div class="card cards">
                 <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
@@ -49,10 +56,11 @@
                 </div>
                 <div class="card-body">
                     <div class="card-text">
+                        <p class="card-text" th:text="${prod.getSupplier().getName()}">Product supplier </p>
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <a class="btn btn-success addToCart" th:attr="data-name=${prod.getName()}, data-price=${prod.getPrice()}, data-desc=${prod.getDescription()}, data-supplier=${prod.getSupplier().getName()}" >Add to cart</a>
                     </div>
                 </div>
             </div>

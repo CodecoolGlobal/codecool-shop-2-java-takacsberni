@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Pet Shop</title>
+
+    <!-- JavaScript: main.js-->
+    <script defer src="/static/js/main.js"></script>
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+
+    <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+
+</head>
+<body>
+<div th:replace="navbar.html :: copy"></div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="card-footer" id="total_price" th:text="${(full_price*0.27)+15+full_price}">>   </div>
+                    <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
+                        <li class="nav-item"> <i class="fas fa-credit-card mr-2"></i> Total price </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<form action="/send_email" method="post">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+                            <!-- Credit card form tabs -->
+                            <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
+                                <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Credit Card </a> </li>
+                                <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Paypal </a> </li>
+                            </ul>
+                        </div> <!-- End -->
+                        <!-- Credit card form content -->
+                        <div class="tab-content">
+                            <!-- credit card info-->
+                            <div id="credit-card" class="tab-pane fade show active pt-3">
+                                <form role="form" onsubmit="event.preventDefault()">
+                                    <div class="form-group"> <label for="username">
+                                        <h6>Card Owner</h6>
+                                    </label> <input id="username" type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                    <div class="form-group"> <label for="cardNumber">
+                                        <h6>Card number</h6>
+                                    </label>
+                                        <div class="input-group"> <input id="cardNumber" type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>
+                                            <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group"> <label><span class="hidden-xs">
+                                                        <h6>Expiration Date</h6>
+                                                    </span></label>
+                                                <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                            </label> <input type="text" required class="form-control"> </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer"> <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
+                                </form>
+                            </div>
+                        </div> <!-- End -->
+                        <!-- Paypal info -->
+                        <div id="paypal" class="tab-pane fade pt-3">
+                            <h6 class="pb-2">Enter your account details</h6>
+                            <div class="form-group ">
+                                <label for="paypal_username">
+                                    <h6>Paypal username</h6>
+                                </label>
+                                <input id="paypal_username" type="text" name="paypal_username" placeholder="Enter username here" required class="form-control ">
+                                <label for="paypal_password">
+                                    <h6>PayPal password</h6>
+                                </label>
+                                <input id="paypal_password" type="text" name="paypal_password" placeholder="Enter password here" required class="form-control ">
+                            </div>
+
+
+                            <p> <a href="/confirmation"><button type="submit" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Confirm Payment</button></a> </p>
+                        </div> <!-- End -->
+
+                        <!-- End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+
+<div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>

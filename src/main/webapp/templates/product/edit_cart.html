@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Checkout</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/edit_cart.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script defer src="/static/js/edit_cart.js"></script>
+</head>
+<body>
+<div th:replace="navbar.html :: copy"></div>
+
+<h1>Edit Checkout</h1>
+
+<div class="shopping-cart">
+
+    <div class="column-labels">
+<!--        <label class="product-image">Image</label>-->
+        <label class="product-details">Product</label>
+        <label class="product-price">Price</label>
+        <label class="product-quantity">Quantity</label>
+        <label class="product-removal">Remove</label>
+        <label class="product-line-price">Total</label>
+    </div>
+
+    <th:block th:each="item : ${items}">
+
+    <div class="product">
+<!--        <div class="product-image">-->
+<!--            <img src="img/valami.jpg">-->
+<!--        </div>-->
+        <div class="product-details">
+            <div class="product-title" th:text="${item.getProductName()}">  </div>
+            <p class="product-description" th:text="${item.getProductDescription()}" >   </p>
+        </div>
+        <div class="product-price" th:text="${item.getProductPrice()}">  </div>
+        <div class="product-quantity">
+            <input type="number" th:attr="value = ${item.getQuantity()}" min="1">
+        </div>
+        <div class="product-removal">
+            <button class="remove-product">
+                Remove
+            </button>
+        </div>
+        <div class="product-line-price" th:text="${item.getProductPrice()*item.getQuantity()}"> </div>
+    </div>
+    </th:block>
+
+
+
+
+    <div class="totals">
+        <div class="totals-item">
+            <label>Subtotal</label>
+            <div class="totals-value" id="cart-subtotal" th:text="${full_price*1.00}">  </div>
+        </div>
+        <div class="totals-item">
+            <label>Tax (27%)</label>
+            <div class="totals-value" id="cart-tax" th:text="${full_price*0.27}"> </div>
+        </div>
+        <div class="totals-item">
+            <label>Shipping</label>
+            <div class="totals-value" id="cart-shipping">15.00</div>
+        </div>
+        <div class="totals-item totals-item-total">
+            <label>Grand Total</label>
+            <div class="totals-value" id="cart-total" th:text="${(full_price*0.27)+full_price+15.00}"> </div>
+        </div>
+    </div>
+
+    <a href="/checkout_cart"><button class="checkout">Checkout</button></a>
+
+</div>
+
+<div th:replace="footer.html :: copy"></div>
+</body>
+</html>

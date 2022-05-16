@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="copy">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle dropdown" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Product categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="categoriesDropdownDiv">
+                    <th:block th:each="category : ${all_categories}">
+                        <a class="dropdown-item"  th:href="@{/category(category_id=${category.getId()})}" th:attr="data-id=${category.getId()}" th:text="${category.getName()}"> </a>
+                    </th:block>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle dropdown" href="#" id="supplierDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Suppliers
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="suppliersDropdownDiv">
+                    <th:block th:each="supplier : ${all_suppliers}">
+                        <a class="dropdown-item" th:href="@{/supplier(supplier_id=${supplier.getId()})}" th:attr="data-id=${supplier.getId()}" th:text="${supplier.getName()}"></a>
+                    </th:block>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ml-auto" id="itemNumber">
+                <p th:text="${items.size()}"></p>
+            </li>
+            <li class="nav-item ml-auto" id="shoppingCart">
+                <a class="nav-link" href="/edit_cart"><img src="/static/img/shopping-cart-icon.png"></a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+</body>
+</html>
+

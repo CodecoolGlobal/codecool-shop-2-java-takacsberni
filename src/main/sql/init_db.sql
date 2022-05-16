@@ -4,7 +4,9 @@ CREATE TABLE public.product (
                                    name text NOT NULL,
                                    description text NOT NULL,
                                    default_price decimal(20,2) NOT NULL,
-                                   currency text NOT NULL
+                                   currency text NOT NULL,
+                                   category_id int NOT NULL,
+                                   supplier_id int NOT NULL
 
 );
 
@@ -20,7 +22,7 @@ DROP TABLE IF EXISTS public.supplier;
 CREATE TABLE public.supplier (
                              id serial NOT NULL PRIMARY KEY,
                              name text NOT NULL,
-                             description text NOT NULL,
+                             description text NOT NULL
 );
 
 DROP TABLE IF EXISTS public.user;
@@ -44,7 +46,8 @@ DROP TABLE IF EXISTS public.order;
 CREATE TABLE public.order (
                                id serial NOT NULL PRIMARY KEY,
                                status text NOT NULL,
-                               date timestamp NOT NULL
+                               date timestamp NOT NULL,
+                               user_id int NOT NULL
 
 );
 
@@ -53,6 +56,8 @@ DROP TABLE IF EXISTS public.line_item;
 CREATE TABLE public.line_item (
                               id serial NOT NULL PRIMARY KEY,
                               quantity int NOT NULL,
+                              order_id int NOT NULL,
+                              product_id int NOT NULL
 
 
 );

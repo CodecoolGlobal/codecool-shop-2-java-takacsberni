@@ -1,14 +1,13 @@
 package com.codecool.shop.dao.database_implementation;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -16,11 +15,12 @@ import java.util.Properties;
 
 public class DatabaseManager {
     private static DatabaseManager databaseManager = null;
+    private static DataSource dataSource;
     private static Properties properties;
-    private ProductDao productDao;
-    private SupplierDao supplierDataStore;
-    private ProductCategoryDao productCategoryDataStore;
-    private OrderDaoMem orderDataStore;
+    private final ProductDao productDataStore = new ProductDaoJdbc(dataSource);
+    private final SupplierDao supplierDataStore = new SupplierDaoJdbc(dataSource);
+    private final ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc(dataSource);
+    private final OrderDao orderDataStore = new OrderDaoJdbc(dataSource);
 
     public static DatabaseManager getInstance() {
         if(databaseManager == null) {
@@ -33,8 +33,8 @@ public class DatabaseManager {
         return properties;
     }
 
-    public ProductDao getProductDao() {
-        return productDao;
+    public ProductDao getProductDataStore() {
+        return productDataStore;
     }
 
     public SupplierDao getSupplierDataStore() {
@@ -45,13 +45,13 @@ public class DatabaseManager {
         return productCategoryDataStore;
     }
 
-    public OrderDaoMem getOrderDataStore() {
+    public OrderDao getOrderDataStore() {
         return orderDataStore;
     }
 
     public void setup() throws IOException, SQLException {
         properties = initializeProperties();
-        DataSource dataSource = connect(properties);
+        dataSource = connect(properties);
 
     }
 

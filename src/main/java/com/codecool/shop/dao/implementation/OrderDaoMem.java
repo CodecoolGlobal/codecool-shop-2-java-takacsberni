@@ -14,6 +14,7 @@ public class OrderDaoMem implements OrderDao {
     private List<Order> orders = new ArrayList<>();
     private static OrderDaoMem instance = null;
 
+
     /* A private Constructor prevents any other class from instantiating.
      */
     private OrderDaoMem() {
@@ -56,9 +57,4 @@ public class OrderDaoMem implements OrderDao {
         return orders;
     }
 
-    @Override
-    public List<LineItem> getLineItems(int orderId) {
-        Order order = this.find(orderId);
-        return order.getLineItems();
-    }
 }

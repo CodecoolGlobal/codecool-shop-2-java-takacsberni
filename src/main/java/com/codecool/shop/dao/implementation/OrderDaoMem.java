@@ -26,9 +26,6 @@ public class OrderDaoMem implements OrderDao {
         return instance;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
 
     @Override
     public void add(Order order) {

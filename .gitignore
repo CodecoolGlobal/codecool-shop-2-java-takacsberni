@@ -20,4 +20,4 @@ target/
 hs_err_pid*
 
 # properties
-*.properties
+connection.properties

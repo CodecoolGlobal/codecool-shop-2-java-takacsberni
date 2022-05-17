@@ -6,10 +6,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +20,19 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void add(Product product) {
+        try(Connection connection = dataSource.getConnection()){
+            String sql = "INSERT INTO product (name, description, default_price, currency, category_id, supplier_id) VALUES (?, ? ,?, ?, ? ,?)";
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, product.getName());
+            st.setString(2, product.getDescription());
+            st.setBigDecimal(3, product.getDefaultPrice());
+            st.setString(4, String.valueOf(product.getDefaultCurrency()));
+            st.setInt(5, product.getProductCategory().getId());
+            st.setInt(6, product.getSupplier().getId());
+            st.executeUpdate();
+        } catch (SQLException throwables) {
+            throw new RuntimeException("Error while adding product", throwables);
+        }
 
     }
 

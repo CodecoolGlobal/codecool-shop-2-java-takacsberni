@@ -1,5 +1,6 @@
 package com.codecool.shop.config;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -28,10 +29,10 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        ProductDao productDataStore = null;
-        SupplierDao supplierDataStore = null;
-        ProductCategoryDao productCategoryDataStore = null;
-        OrderDaoMem orderDataStore = null;
+        ProductDao productDataStore;
+        SupplierDao supplierDataStore;
+        ProductCategoryDao productCategoryDataStore;
+        OrderDao orderDataStore;
 
         try {
             databaseManager.setup();
@@ -58,7 +59,7 @@ public class Initializer implements ServletContextListener {
             supplierDataStore = SupplierDaoMem.getInstance();
             orderDataStore = OrderDaoMem.getInstance();
 
-            int orderId = orderDataStore.getOrders().size()+1;
+            int orderId = (orderDataStore).getAll().size()+1;
             Order newOrder = new Order(orderId);
             orderDataStore.add(newOrder);
 

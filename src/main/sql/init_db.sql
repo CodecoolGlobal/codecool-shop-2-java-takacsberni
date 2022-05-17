@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS public.product;
+DROP TABLE IF EXISTS public.product CASCADE;
 CREATE TABLE public.product (
                                    id serial NOT NULL PRIMARY KEY,
                                    name text NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE public.product (
 
 );
 
-DROP TABLE IF EXISTS public.category;
+DROP TABLE IF EXISTS public.category CASCADE;
 CREATE TABLE public.category (
                                id serial NOT NULL PRIMARY KEY,
                                name text NOT NULL,
@@ -19,31 +19,31 @@ CREATE TABLE public.category (
                                department text NOT NULL
 );
 
-DROP TABLE IF EXISTS public.supplier;
+DROP TABLE IF EXISTS public.supplier CASCADE;
 CREATE TABLE public.supplier (
                              id serial NOT NULL PRIMARY KEY,
                              name text NOT NULL,
                              description text NOT NULL
 );
 
-DROP TABLE IF EXISTS public.user;
+DROP TABLE IF EXISTS public.user CASCADE;
 CREATE TABLE public.user (
                                id serial NOT NULL PRIMARY KEY,
                                email text NOT NULL,
                                password text NOT NULL,
-                               name text NOT NULL,
-                               phone_number text NOT NULL,
-                               billing_country text NOT NULL,
-                               billing_city text NOT NULL,
-                               billing_zipcode text NOT NULL,
-                               billing_address text NOT NULL,
-                               shipping_country text NOT NULL,
-                               shipping_city text NOT NULL,
-                               shipping_zipcode text NOT NULL,
-                               shipping_address text NOT NULL
+                               name text,
+                               phone_number text,
+                               billing_country text,
+                               billing_city text,
+                               billing_zipcode text,
+                               billing_address text,
+                               shipping_country text,
+                               shipping_city text,
+                               shipping_zipcode text,
+                               shipping_address text
 );
 
-DROP TABLE IF EXISTS public.order;
+DROP TABLE IF EXISTS public.order CASCADE;
 CREATE TABLE public.order (
                                id serial NOT NULL PRIMARY KEY,
                                status text NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE public.order (
 );
 
 
-DROP TABLE IF EXISTS public.line_item;
+DROP TABLE IF EXISTS public.line_item CASCADE;
 CREATE TABLE public.line_item (
                               id serial NOT NULL PRIMARY KEY,
                               quantity int NOT NULL,

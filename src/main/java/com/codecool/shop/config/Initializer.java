@@ -48,7 +48,7 @@ public class Initializer implements ServletContextListener {
         String daoProperty = databaseManager.getProperties().getProperty("dao");
 
         if (Objects.equals(daoProperty, "jdbc")){
-            productDataStore = databaseManager.getProductDao();
+            productDataStore = databaseManager.getProductDataStore();
             supplierDataStore = databaseManager.getSupplierDataStore();
             productCategoryDataStore = databaseManager.getProductCategoryDataStore();
             orderDataStore = databaseManager.getOrderDataStore();

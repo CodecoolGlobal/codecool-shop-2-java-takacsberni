@@ -12,4 +12,6 @@ public interface LineItemDao {
 
     List<LineItem> getAll();
 
+    List<LineItem> getLineItems(int orderId);
+
 }

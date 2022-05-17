@@ -4,6 +4,8 @@ import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.database_implementation.UserDaoJdbc;
 import com.codecool.shop.model.User;
 
+import java.sql.SQLException;
+
 public class UserService {
     //TODO: regisztrációnál a post ezen keresztül hívja meg a userDaoJdbc-n az add()-ot
     private UserDao userDao;
@@ -12,12 +14,12 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public void registration(User user){
-        if (userDao.findByEmail(user.getEmail()) == null){
+    public void registration(User user) throws SQLException {
+//        if (userDao.findByEmail(user.getEmail()) == null){
             userDao.add(user);
-        }
-        else {
+//        }
+//        else {
             //TODO - létező user
-        }
+//        }
     }
 }

@@ -4,6 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.User;
 import com.codecool.shop.service.OrderService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -31,18 +32,23 @@ public class RegistrationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("name", request.getParameter("name"));
-        parameters.put("email", request.getParameter("email"));
-        parameters.put("password", request.getParameter("password"));
-
-        Order order = orderservice.getOrderById(orderservice.getCurrentOrderId());
-        order.setCustomerData(parameters);
-        response.setContentType("text/html");
-        PrintWriter pw=response.getWriter();
-
-        response.sendRedirect("product/index.html");
-
-        pw.close();
+// //        working with memory:
+//        HashMap<String, String> parameters = new HashMap<>();
+//        parameters.put("name", request.getParameter("name"));
+//        parameters.put("email", request.getParameter("email"));
+//        parameters.put("password", request.getParameter("password"));
+//
+//        Order order = orderservice.getOrderById(orderservice.getCurrentOrderId());
+//        order.setCustomerData(parameters);
+//        response.setContentType("text/html");
+//        PrintWriter pw=response.getWriter();
+//
+//        response.sendRedirect("product/index.html");
+//
+//        pw.close();
+        User user = new User(request.getParameter("name"), request.getParameter("email"), request.getParameter("password"));
+        if (request.getParameter("address") != null){
+            user.setBilling_address(request.getParameter(""));
+        }
     }
 }

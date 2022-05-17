@@ -1,14 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.OrderService;
@@ -39,9 +33,10 @@ import java.util.List;
             SupplierService supplierService = new SupplierService(supplierDataStore);
 
             OrderDao orderDataStore = OrderDaoMem.getInstance();
-            OrderService orderservice = new OrderService(orderDataStore);
+            LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+            OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
             int currentOrder = orderservice.getCurrentOrderId();
-            List<LineItem> lineItems = orderservice.getLineItems(currentOrder);
+            List<LineItem> lineItems = orderservice.getLineItemsByOrder(currentOrder);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             int supplierId = Integer.parseInt(req.getParameter("supplier_id"));

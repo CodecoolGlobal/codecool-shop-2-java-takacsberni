@@ -1,9 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.LineItemDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -32,9 +34,9 @@ import java.util.List;
 public class OrderController extends HttpServlet {
 
     OrderDao orderDataStore = OrderDaoMem.getInstance();
-    OrderService orderservice = new OrderService(orderDataStore);
-    int currentOrder = orderservice.getCurrentOrderId();
-    List<LineItem> lineItems = orderservice.getLineItems(currentOrder);
+    LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+    OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
+
 
 
     @Override
@@ -46,33 +48,16 @@ public class OrderController extends HttpServlet {
         String productDescription = request.getParameter("desc");
         String productName = request.getParameter("prod_name");
         String supplier = request.getParameter("supplier");
-
-        addLineItemOrUpdateQuantity(productName, productPrice, productDescription, supplier);
-
+        int productId = Integer.parseInt(request.getParameter("prod_id"));
+        List<LineItem> lineItems = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());
+        orderservice.addLineItemOrUpdateQuantity(productName, productPrice, productDescription, supplier, productId);
         int lineItemNumber = lineItems.size();
         PrintWriter out = response.getWriter();
         out.println(lineItemNumber);
 
     }
 
-    private LineItem isProductAlreadyInOrder(String productName) {
-        for (LineItem item : lineItems) {
-            if (item.getProductName().equals(productName)) {
-                return item;
-            }
-        }
-        return null;
-    }
 
-    private void addLineItemOrUpdateQuantity(String productName, BigDecimal productPrice, String productDescription, String supplier) {
-        LineItem itemWithSameProduct = isProductAlreadyInOrder(productName);
-        if (itemWithSameProduct == null) {
-            orderservice.addLineItem(productPrice, productName, productDescription, currentOrder, supplier);
-        } else {
-            itemWithSameProduct.setQuantity(1); // adds one to quantity
-        }
-
-    }
 }
 
 //    @Override

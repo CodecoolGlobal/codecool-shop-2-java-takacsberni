@@ -1,14 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
@@ -27,7 +21,8 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/edit_cart"})
 public class EditCartController extends HttpServlet {
     OrderDao orderDataStore = OrderDaoMem.getInstance();
-    OrderService orderservice = new OrderService(orderDataStore);
+    LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+    OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
 
 
     @Override
@@ -39,8 +34,7 @@ public class EditCartController extends HttpServlet {
         SupplierService supplierService = new SupplierService(supplierDataStore);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
 
-        List<LineItem> items = orderservice.getLineItems(1);
-        int lineItemNumber = orderservice.getLineItems(1).size();
+        List<LineItem> items = orderservice.getLineItemsByOrder(1);
 
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("all_categories", productService.getAllCategories());

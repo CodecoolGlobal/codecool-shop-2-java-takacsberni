@@ -39,6 +39,15 @@ public class LineItemDaoJdbc implements LineItemDao {
 
     @Override
     public void remove(int id) {
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "DELETE FROM line_item WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        }
+        catch(SQLException e){
+            throw new RuntimeException("Error while deleting line item with id" + id, e);
+        }
 
     }
 

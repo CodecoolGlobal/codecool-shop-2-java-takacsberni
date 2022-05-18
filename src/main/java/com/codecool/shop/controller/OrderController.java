@@ -49,8 +49,8 @@ public class OrderController extends HttpServlet {
         String productName = request.getParameter("prod_name");
         String supplier = request.getParameter("supplier");
         int productId = Integer.parseInt(request.getParameter("prod_id"));
-        List<LineItem> lineItems = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());
         orderservice.addLineItemOrUpdateQuantity(productName, productPrice, productDescription, supplier, productId);
+        List<LineItem> lineItems = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());
         int lineItemNumber = lineItems.size();
         PrintWriter out = response.getWriter();
         out.println(lineItemNumber);

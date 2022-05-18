@@ -1,10 +1,12 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.database_implementation.DatabaseManager;
 import com.codecool.shop.dao.database_implementation.UserDaoJdbc;
+import com.codecool.shop.dao.implementation.LineItemDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.User;
@@ -25,8 +27,9 @@ import java.util.HashMap;
 
 @WebServlet(urlPatterns = {"/registration"})
 public class RegistrationController extends HttpServlet {
-    OrderDao orderDataStore = OrderDaoMem.getInstance();
-    OrderService orderservice = new OrderService(orderDataStore);
+//    OrderDao orderDataStore = OrderDaoMem.getInstance();
+//    LineItemDao lineItemDao = LineItemDaoMem.getInstance();
+//    OrderService orderservice = new OrderService(orderDataStore, lineItemDao);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

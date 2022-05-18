@@ -32,8 +32,7 @@ public class Initializer implements ServletContextListener {
         ProductDao productDataStore;
         SupplierDao supplierDataStore;
         ProductCategoryDao productCategoryDataStore;
-        //TODO OrderDaoMem helyett itt OrderDao kellene a DataBaseManager miatt, de lentebb már több helyütt be van építve a Mem
-        OrderDao orderDataStore = null;
+        OrderDao orderDataStore;
 
         try {
             databaseManager.setup();
@@ -54,16 +53,16 @@ public class Initializer implements ServletContextListener {
             productCategoryDataStore = databaseManager.getProductCategoryDataStore();
             orderDataStore = databaseManager.getOrderDataStore();
         }
-        else if (Objects.equals(daoProperty, "memory")){ //EZEK A KORÁBBI RÉSZEK VÁLTOZTATÁS NÉLKÜL
+        else { //EZEK A KORÁBBI RÉSZEK VÁLTOZTATÁS NÉLKÜL
             productDataStore = ProductDaoMem.getInstance();
             productCategoryDataStore = ProductCategoryDaoMem.getInstance();
             supplierDataStore = SupplierDaoMem.getInstance();
             orderDataStore = OrderDaoMem.getInstance();
 
-            int orderId = (orderDataStore).getAll().size()+1;
+            int orderId = (orderDataStore).getAll().size() + 1;
             Order newOrder = new Order(orderId);
             orderDataStore.add(newOrder);
-
+        }
             //setting up a new supplier
             Supplier chernobylPetShop = new Supplier("Chernobyl Pet Shop", "Exotic animals from Chernobyl");
             supplierDataStore.add(chernobylPetShop);
@@ -95,4 +94,4 @@ public class Initializer implements ServletContextListener {
             productDataStore.add(new Product("Oppossum", new BigDecimal("49.9"), "USD", "Playful oppossums - good choice for children! ", pocketPets, superPetStore));
         }
     }
-}
+

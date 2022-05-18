@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.database_implementation.DatabaseManager;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.service.OrderService;
@@ -26,13 +27,14 @@ public class ConfirmationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ProductDao productDataStore = databaseManager.getProductDataStore();
+        ProductCategoryDao productCategoryDataStore = databaseManager.getProductCategoryDataStore();
+        SupplierDao supplierDataStore = databaseManager.getSupplierDataStore();
         ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
         SupplierService supplierService = new SupplierService(supplierDataStore);
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+        OrderDao orderDataStore = databaseManager.getOrderDataStore();
+        LineItemDao lineItemDataStore = databaseManager.getLineItemDataStore();
         OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
 
         List<LineItem> items = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());

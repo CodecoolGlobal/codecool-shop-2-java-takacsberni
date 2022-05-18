@@ -41,7 +41,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             return new Supplier(rs.getString(1), rs.getString(2));
         }
         catch(SQLException e){
-            throw new RuntimeException("Error while reading supplier");
+            throw new RuntimeException("Error while reading supplier", e);
         }
     }
 

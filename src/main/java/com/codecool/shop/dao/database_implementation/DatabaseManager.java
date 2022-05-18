@@ -1,7 +1,7 @@
 package com.codecool.shop.dao.database_implementation;
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Properties;
 
 public class DatabaseManager {
@@ -25,9 +24,13 @@ public class DatabaseManager {
     private ProductCategoryDao productCategoryDataStore;
     private OrderDao orderDataStore;
     private UserDao userDao;
+    private LineItemDao lineItemDataStore;
 
+    private DatabaseManager() throws IOException {
+        properties = initializeProperties();
+    }
 
-    public static DatabaseManager getInstance() {
+    public static DatabaseManager getInstance() throws IOException {
         if(databaseManager == null) {
             databaseManager = new DatabaseManager();
         }
@@ -54,14 +57,18 @@ public class DatabaseManager {
         return orderDataStore;
     }
 
+    public LineItemDao getLineItemDataStore() {
+        return lineItemDataStore;
+    }
+
     public void setup() throws IOException, SQLException {
-        properties = initializeProperties();
         dataSource = connect(properties);
         userDao = new UserDaoJdbc(dataSource);
         productDataStore = new ProductDaoJdbc(dataSource);
         supplierDataStore = new SupplierDaoJdbc(dataSource);
         productCategoryDataStore = new ProductCategoryDaoJdbc(dataSource);
         orderDataStore = new OrderDaoJdbc(dataSource);
+        lineItemDataStore = new LineItemDaoJdbc(dataSource);
 
     }
 
@@ -97,5 +104,13 @@ public class DatabaseManager {
 
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    public void setupMem(){ //ezt az Initializer setup()-ból hoztuk ki ide (else ágból)
+        productDataStore = ProductDaoMem.getInstance();
+        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        supplierDataStore = SupplierDaoMem.getInstance();
+        orderDataStore = OrderDaoMem.getInstance();
+        lineItemDataStore = LineItemDaoMem.getInstance();
     }
 }

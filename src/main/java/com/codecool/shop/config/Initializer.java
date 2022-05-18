@@ -28,41 +28,49 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        DatabaseManager databaseManager = null;
+        try {
+            databaseManager = DatabaseManager.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ProductDao productDataStore;
         SupplierDao supplierDataStore;
         ProductCategoryDao productCategoryDataStore;
         OrderDao orderDataStore;
 
-        try {
-            databaseManager.setup();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Input/Output error");
-        } catch (SQLException e) {
-            System.out.println("Can't connect to the database.");
-        }
 
 
         String daoProperty = databaseManager.getProperties().getProperty("dao");
 
         if (Objects.equals(daoProperty, "jdbc")){
-            productDataStore = databaseManager.getProductDataStore();
-            supplierDataStore = databaseManager.getSupplierDataStore();
-            productCategoryDataStore = databaseManager.getProductCategoryDataStore();
-            orderDataStore = databaseManager.getOrderDataStore();
+            try {
+                databaseManager.setup();
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            } catch (IOException e) {
+                System.out.println("Input/Output error");
+            } catch (SQLException e) {
+                System.out.println("Can't connect to the database.");
+            }
         }
         else { //EZEK A KORÁBBI RÉSZEK VÁLTOZTATÁS NÉLKÜL
-            productDataStore = ProductDaoMem.getInstance();
-            productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-            supplierDataStore = SupplierDaoMem.getInstance();
-            orderDataStore = OrderDaoMem.getInstance();
-
-            int orderId = (orderDataStore).getAll().size() + 1;
+            databaseManager.setupMem();
+            orderDataStore = databaseManager.getOrderDataStore();
+            int orderId = orderDataStore.getAll().size() + 1;
             Order newOrder = new Order(orderId);
             orderDataStore.add(newOrder);
         }
+
+            productDataStore = databaseManager.getProductDataStore();
+            supplierDataStore = databaseManager.getSupplierDataStore();
+            productCategoryDataStore = databaseManager.getProductCategoryDataStore();
+
+
+
+
+
+
             //setting up a new supplier
             Supplier chernobylPetShop = new Supplier("Chernobyl Pet Shop", "Exotic animals from Chernobyl");
             supplierDataStore.add(chernobylPetShop);

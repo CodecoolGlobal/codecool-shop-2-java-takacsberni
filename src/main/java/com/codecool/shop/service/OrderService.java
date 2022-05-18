@@ -15,7 +15,6 @@ public class OrderService{
     private OrderDao orderDao;
     private LineItemDao lineItemDao;
     private int currentOrderId = 1;
-    List<LineItem> lineItems = getLineItemsByOrder(currentOrderId);
 
     public OrderService(OrderDao orderDao, LineItemDao lineItemDao) {
         this.orderDao = orderDao;
@@ -38,7 +37,7 @@ public class OrderService{
     }
 
     private LineItem isProductAlreadyInOrder(String productName) {
-        for (LineItem item : lineItems) {
+        for (LineItem item : getLineItemsByOrder(currentOrderId)) {
             if (item.getProductName().equals(productName)) {
                 return item;
             }

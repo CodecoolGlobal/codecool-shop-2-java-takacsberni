@@ -13,6 +13,9 @@ public class LineItemDaoMem implements LineItemDao {
     private List<LineItem> lineItems = new ArrayList<>();
     private static LineItemDaoMem instance = null;
 
+    private LineItemDaoMem() {
+    }
+
     public static LineItemDaoMem getInstance() {
         if (instance == null) {
             instance = new LineItemDaoMem();

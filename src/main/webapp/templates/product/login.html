@@ -11,14 +11,41 @@
 
 </head>
 <body>
-<form class="modal-content animate" action="/login" method="post">
-    <label for="email"><b>Username</b></label>
-    <input type="text" placeholder="Enter your e-mail address" name="email" id="email" required>
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
-    <button type="submit" value="Login" formaction="/login" formmethod="post">Login</button>
+<form class="form-horizontal" action='' method="POST">
+    <fieldset>
+        <div id="legend">
+            <legend class="">Login</legend>
+        </div>
+
+        <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="login_email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="login_email" name="login_email" placeholder="" class="input-xlarge">
+                <p class="help-block">Please provide your E-mail</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="login_password">Password</label>
+            <div class="controls">
+                <input type="password" id="login_password" name="login_password" placeholder="" class="input-xlarge">
+                <p class="help-block">Password should be at least 4 characters</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+                <button type="submit" formaction="/login" formmethod="post" class="btn btn-success">Login</button>
+            </div>
+        </div>
+    </fieldset>
 </form>
+
+
 </body>
 </html>

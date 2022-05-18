@@ -19,7 +19,7 @@ public class UserDaoJdbc implements UserDao {
     @Override
     public void add(User user) throws SQLException {
         try (Connection connection = dataSource.getConnection()){
-            String query = "INSERT INTO user (email, password, name, phone_number, billing_country, billing_city, " +
+            String query = "INSERT INTO \"user\" (email, password, name, phone_number, billing_country, billing_city, " +
                     "billing_zipcode, billing_address, shipping_country, shipping_city, shipping_zipcode, shipping_address) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

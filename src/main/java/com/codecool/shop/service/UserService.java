@@ -8,18 +8,20 @@ import java.sql.SQLException;
 
 public class UserService {
     //TODO: regisztrációnál a post ezen keresztül hívja meg a userDaoJdbc-n az add()-ot
-    private UserDao userDao;
+    private static UserDao userDao;
 
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
-    public void registration(User user) throws SQLException {
+    public boolean registration(User user) throws SQLException {
 //        if (userDao.findByEmail(user.getEmail()) == null){
             userDao.add(user);
+            return true;
 //        }
 //        else {
-            //TODO - létező user
+//
+//            return false;
 //        }
     }
 }

@@ -1,12 +1,11 @@
 package com.codecool.shop.dao.database_implementation;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,7 +19,8 @@ public class DatabaseManager {
     private ProductDao productDao;
     private SupplierDao supplierDataStore;
     private ProductCategoryDao productCategoryDataStore;
-    private OrderDaoMem orderDataStore;
+    private OrderDao orderDataStore;
+    private UserDao userDao;
 
     public static DatabaseManager getInstance() {
         if(databaseManager == null) {
@@ -45,20 +45,26 @@ public class DatabaseManager {
         return productCategoryDataStore;
     }
 
-    public OrderDaoMem getOrderDataStore() {
+    public OrderDao getOrderDataStore() {
         return orderDataStore;
     }
 
     public void setup() throws IOException, SQLException {
         properties = initializeProperties();
         DataSource dataSource = connect(properties);
+        userDao = new UserDaoJdbc(dataSource);
+        productDao = new ProductDaoJdbc(dataSource);
+        supplierDataStore = new SupplierDaoJdbc(dataSource);
+        productCategoryDataStore = new ProductCategoryDaoJdbc(dataSource);
+        orderDataStore = new OrderDaoJdbc(dataSource);
 
     }
 
     private Properties initializeProperties() throws IOException {
         Properties properties = new Properties();
-        String root = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String configPath = root+"connection.properties";
+//        String root = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
+        String root = new File(System.getProperty("user.dir")).getAbsolutePath();
+        String configPath = root+"/src/main/resources/connection.properties";
         properties.load(new FileInputStream(configPath));
 
         return properties;
@@ -82,5 +88,9 @@ public class DatabaseManager {
 
 
         return dataSource;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
     }
 }

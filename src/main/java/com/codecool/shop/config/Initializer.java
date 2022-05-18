@@ -1,9 +1,11 @@
 package com.codecool.shop.config;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.database_implementation.DatabaseManager;
+import com.codecool.shop.dao.database_implementation.OrderDaoJdbc;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -31,7 +33,9 @@ public class Initializer implements ServletContextListener {
         ProductDao productDataStore = null;
         SupplierDao supplierDataStore = null;
         ProductCategoryDao productCategoryDataStore = null;
-        OrderDaoMem orderDataStore = null;
+        OrderDaoMem orderDataMemStore = null;
+        //TODO OrderDaoMem helyett itt OrderDao kellene a DataBaseManager miatt, de lentebb már több helyütt be van építve a Mem
+        OrderDao orderDataStore = null;
 
         try {
             databaseManager.setup();
@@ -58,7 +62,7 @@ public class Initializer implements ServletContextListener {
             supplierDataStore = SupplierDaoMem.getInstance();
             orderDataStore = OrderDaoMem.getInstance();
 
-            int orderId = orderDataStore.getOrders().size()+1;
+            int orderId = orderDataMemStore.getOrders().size()+1;
             Order newOrder = new Order(orderId);
             orderDataStore.add(newOrder);
 

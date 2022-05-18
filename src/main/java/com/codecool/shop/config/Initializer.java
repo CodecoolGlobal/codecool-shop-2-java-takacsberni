@@ -32,7 +32,8 @@ public class Initializer implements ServletContextListener {
         ProductDao productDataStore;
         SupplierDao supplierDataStore;
         ProductCategoryDao productCategoryDataStore;
-        OrderDao orderDataStore;
+        //TODO OrderDaoMem helyett itt OrderDao kellene a DataBaseManager miatt, de lentebb már több helyütt be van építve a Mem
+        OrderDao orderDataStore = null;
 
         try {
             databaseManager.setup();

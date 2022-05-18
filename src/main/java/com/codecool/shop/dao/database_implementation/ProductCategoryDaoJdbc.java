@@ -2,12 +2,11 @@ package com.codecool.shop.dao.database_implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
@@ -34,7 +33,19 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        return null;
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name, description, department FROM category WHERE id=?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+        }
+        catch(SQLException e){
+            throw new RuntimeException("Error while reading category with id" + id, e);
+        }
     }
 
     @Override
@@ -44,6 +55,17 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT name, description, department FROM category";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<ProductCategory> categories = new ArrayList<>();
+            while (rs.next()) { // while result set pointer is positioned before or on last row read authors
+                ProductCategory category = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+                categories.add(category);
+            }
+            return categories;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all categories", e);
+        }
     }
 }

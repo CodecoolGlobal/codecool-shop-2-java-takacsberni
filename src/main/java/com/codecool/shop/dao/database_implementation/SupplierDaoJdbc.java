@@ -30,7 +30,19 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
-        return null;
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name, description FROM supplier WHERE id=?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return new Supplier(rs.getString(1), rs.getString(2));
+        }
+        catch(SQLException e){
+            throw new RuntimeException("Error while reading supplier");
+        }
     }
 
     @Override

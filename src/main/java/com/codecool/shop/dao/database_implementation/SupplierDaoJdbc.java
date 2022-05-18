@@ -4,10 +4,8 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJdbc implements SupplierDao {
@@ -42,6 +40,17 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT name, description FROM supplier";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Supplier> suppliers = new ArrayList<>();
+            while (rs.next()) { // while result set pointer is positioned before or on last row read authors
+                Supplier supplier = new Supplier(rs.getString(1), rs.getString(2));
+                suppliers.add(supplier);
+            }
+            return suppliers;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all suppliers", e);
+        }
     }
 }

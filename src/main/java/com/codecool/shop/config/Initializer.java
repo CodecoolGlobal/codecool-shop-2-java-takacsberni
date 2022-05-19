@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 
 @WebListener
@@ -53,6 +54,10 @@ public class Initializer implements ServletContextListener {
             } catch (SQLException e) {
                 System.out.println("Can't connect to the database.");
             }
+            orderDataStore = databaseManager.getOrderDataStore();
+            int orderId = orderDataStore.getAll().size() + 1;
+            Order newOrder = new Order(orderId, 1, new Date(), "checked");
+            orderDataStore.add(newOrder);
         }
         else { //EZEK A KORÁBBI RÉSZEK VÁLTOZTATÁS NÉLKÜL
             databaseManager.setupMem();

@@ -47,7 +47,9 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             if (!rs.next()) {
                 return null;
             }
-            return new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+            ProductCategory category = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+            category.setId(id);
+            return category;
         }
         catch(SQLException e){
             throw new RuntimeException("Error while reading category with id " + id, e);

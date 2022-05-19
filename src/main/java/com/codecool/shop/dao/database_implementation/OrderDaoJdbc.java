@@ -21,10 +21,10 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public void add(Order order) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO order (status, date, user_id) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO \"order\" (status, date, user_id) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, order.getStatus());
-            statement.setDate(2, (Date) order.getDate());
+            statement.setDate(2, new java.sql.Date(order.getDate().getTime()));
             statement.setInt(3, order.getUserId());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
@@ -37,7 +37,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public Order find(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT * FROM order WHERE id = ?";
+            String sql = "SELECT * FROM \"order\" WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -59,7 +59,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public List<Order> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT * FROM order";
+            String sql = "SELECT * FROM \"order\"";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Order> result = new ArrayList<>();
             while (rs.next()) { // while result set pointer is positioned before or on last row read authors

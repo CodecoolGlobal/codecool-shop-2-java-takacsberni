@@ -44,7 +44,9 @@ public class SupplierDaoJdbc implements SupplierDao {
             if (!rs.next()) {
                 return null;
             }
-            return new Supplier(rs.getString(1), rs.getString(2));
+            Supplier supplier = new Supplier(rs.getString(1), rs.getString(2));
+            supplier.setId(id);
+            return supplier;
         }
         catch(SQLException e){
             throw new RuntimeException("Error while reading supplier with id " + id, e);

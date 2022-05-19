@@ -19,15 +19,21 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        try(Connection connection = dataSource.getConnection()){
-            String sql = "INSERT INTO category (name, description, department) VALUES (?, ? ,?)";
-            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, category.getName());
-            st.setString(2, category.getDescription());
-            st.setString(3, category.getDepartment());
-            st.executeUpdate();
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding product category", throwables);
+        if(!find(category.getName())){
+            try(Connection connection = dataSource.getConnection()){
+                String sql = "INSERT INTO category (name, description, department) VALUES (?, ? ,?)";
+                PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                st.setString(1, category.getName());
+                st.setString(2, category.getDescription());
+                st.setString(3, category.getDepartment());
+                st.executeUpdate();
+            } catch (SQLException throwables) {
+                throw new RuntimeException("Error while adding product category", throwables);
+            }
+        }
+        else{
+            System.out.printf("Category %s already exists", category.getName());
+            System.out.println();
         }
     }
 
@@ -44,7 +50,20 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             return new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
         }
         catch(SQLException e){
-            throw new RuntimeException("Error while reading category with id" + id, e);
+            throw new RuntimeException("Error while reading category with id " + id, e);
+        }
+    }
+
+    public boolean find(String categoryName){
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT id FROM category WHERE name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, categoryName);
+            ResultSet rs = st.executeQuery();
+            return rs.next();
+        }
+        catch(SQLException throwables){
+            throw new RuntimeException("Error while getting category: " + categoryName, throwables);
         }
     }
 

@@ -39,7 +39,8 @@ public class ProductDaoJdbc implements ProductDao {
             }
         }
         else{
-            System.out.println("Product already exists");
+            System.out.printf("Product %s already exists", productName);
+            System.out.println();
         }
     }
 
@@ -90,7 +91,7 @@ public class ProductDaoJdbc implements ProductDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, productName);
             ResultSet rs = st.executeQuery();
-            return rs != null;
+            return rs.next();
         }
         catch(SQLException throwables){
             throw new RuntimeException("Error while getting product:" + productName, throwables);

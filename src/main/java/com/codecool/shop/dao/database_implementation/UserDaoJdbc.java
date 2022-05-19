@@ -52,13 +52,33 @@ public class UserDaoJdbc implements UserDao {
     @Override
     public User findByEmail(String email) throws SQLException {
         try (Connection connection = dataSource.getConnection()){
-            String query = "SELECT id FROM \"user\" WHERE email = ? ";
-            PreparedStatement st = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, " ' " + email + " ' ");
-            st.executeUpdate();
+            String query = "SELECT id, email, password, name, billing_country, billing_city, billing_zipcode, billing_address FROM \"user\" WHERE email = ? ";
+            PreparedStatement st = connection.prepareStatement(query);
+//            st.setString(1, " ' " + email + " ' ");
+            st.setString(1, email);
+            ResultSet resultSet = st.executeQuery();
+//            st.executeUpdate();
+            if (!resultSet.next()) {
+                return null;
+            }
+            int id = resultSet.getInt(1);
+            String emailAddress = resultSet.getString(2);
+            String password = resultSet.getString(3);
+            String name = resultSet.getString(4);
+            String billing_country = resultSet.getString(5);
+            String billing_city = resultSet.getString(6);
+            String billing_zipCode = resultSet.getString(7);
+            String billing_address = resultSet.getString(8);
+
+            User user = new User(emailAddress, password, name);
+            user.setId(id);
+            user.setBilling_address(billing_address);
+            user.setBilling_city(billing_city);
+            user.setBilling_country(billing_country);
+            user.setBilling_zipcode(billing_zipCode);
+            return user;
         } catch (SQLException throwables){
             throw new RuntimeException("Error while finding email in database", throwables);
         }
-        return null;
     }
 }

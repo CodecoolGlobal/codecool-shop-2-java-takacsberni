@@ -37,15 +37,14 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath()+"/login");
             }
             else {
-                resp.sendRedirect(req.getContextPath()+"/");
+                HttpSession session = req.getSession();
+                session.setAttribute("user", email);
+                resp.sendRedirect(req.getContextPath()+ "/");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        HttpSession session = req.getSession();
-        session.setAttribute("user", email);
-        resp.sendRedirect(req.getContextPath()+ "/");
 
         //TODO validátor:
         // if userService.loginSuccess(user) then - csináld a fentit, vigyél a főoldalra

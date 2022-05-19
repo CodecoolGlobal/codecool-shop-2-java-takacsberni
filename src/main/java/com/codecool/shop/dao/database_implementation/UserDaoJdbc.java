@@ -50,7 +50,15 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public User findByEmail(String email){
+    public User findByEmail(String email) throws SQLException {
+        try (Connection connection = dataSource.getConnection()){
+            String query = "SELECT id FROM \"user\" WHERE email = ? ";
+            PreparedStatement st = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, " ' " + email + " ' ");
+            st.executeUpdate();
+        } catch (SQLException throwables){
+            throw new RuntimeException("Error while finding email in database", throwables);
+        }
         return null;
     }
 }

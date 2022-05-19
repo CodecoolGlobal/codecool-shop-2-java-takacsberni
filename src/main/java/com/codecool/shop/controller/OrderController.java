@@ -5,6 +5,7 @@ import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.database_implementation.DatabaseManager;
 import com.codecool.shop.dao.implementation.LineItemDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
@@ -33,10 +34,13 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/order"})
 public class OrderController extends HttpServlet {
 
-    OrderDao orderDataStore = OrderDaoMem.getInstance(); //dataBaseManager.get
-    LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+    DatabaseManager databaseManager = DatabaseManager.getInstance();
+    OrderDao orderDataStore = databaseManager.getOrderDataStore();
+    LineItemDao lineItemDataStore = databaseManager.getLineItemDataStore();
     OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
 
+    public OrderController() throws IOException {
+    }
 
 
     @Override

@@ -124,10 +124,6 @@ public class ProductDaoJdbc implements ProductDao {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, supplierId);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) {
-                return null;
-            }
-
             while (rs.next()) { // while result set pointer is positioned before or on last row read authors
                 ProductCategory category = new ProductCategory(rs.getString(5), rs.getString(6), rs.getString(7));
                 supplier = new Supplier(rs.getString(8), rs.getString(9));
@@ -148,23 +144,20 @@ public class ProductDaoJdbc implements ProductDao {
 
         try(Connection connection = dataSource.getConnection()){
             String sql = "SELECT product.name, product.description, product.default_price, product.currency, " +
-                    "category.name, category.department, category.description," +
-                    "supplier.name, supplier.description" +
+                    "category.name, category.department, category.description, " +
+                    "supplier.name, supplier.description, product.id " +
                     "FROM product " +
-                    "JOIN category ON product.category_id = category.id" +
-                    "JOIN supplier ON product.category_id = supplier.id" +
-                    "WHERE supplier_id = ?";
+                    "JOIN category ON product.category_id = category.id " +
+                    "JOIN supplier ON product.category_id = supplier.id " +
+                    "WHERE category_id = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, categoryId);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) {
-                return null;
-            }
-
             while (rs.next()) { // while result set pointer is positioned before or on last row read authors
                 productCategory = new ProductCategory(rs.getString(5), rs.getString(6), rs.getString(7));
                 Supplier supplier = new Supplier(rs.getString(8), rs.getString(9));
                 Product product = new Product(rs.getString(1), rs.getBigDecimal(3), rs.getString(4), rs.getString(2), productCategory, supplier);
+                product.setId(rs.getInt(10));
                 products.add(product);
             }
         }

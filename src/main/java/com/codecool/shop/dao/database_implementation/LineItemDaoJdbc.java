@@ -59,10 +59,10 @@ public class LineItemDaoJdbc implements LineItemDao {
     @Override
     public List<LineItem> getLineItems(int orderId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT line_item.quantity, product.default_price, product.name, product.description, order.id, supplier.name, product.id " +
+            String sql = "SELECT line_item.quantity, product.default_price, product.name, product.description, \"order\".id, supplier.name, product.id " +
                     "FROM line_item " +
                     "JOIN product ON line_item.product_id = product.id " +
-                    "JOIN order ON line_item.order_id = order.id " +
+                    "JOIN \"order\" ON line_item.order_id = \"order\".id " +
                     "JOIN supplier on product.supplier_id = supplier.id" +
                     " WHERE order_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);

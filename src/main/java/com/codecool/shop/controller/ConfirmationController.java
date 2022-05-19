@@ -61,6 +61,7 @@ public class ConfirmationController extends HttpServlet {
         // params.put("category", productCategoryDataStore.find(1));
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
+        resp.setCharacterEncoding("UTF-8");
         engine.process("product/confirmation.html", context, resp.getWriter());
     }
 }

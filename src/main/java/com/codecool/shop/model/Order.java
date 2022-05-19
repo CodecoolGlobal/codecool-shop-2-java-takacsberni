@@ -2,19 +2,31 @@ package com.codecool.shop.model;
 
 import com.google.gson.Gson;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Order {
     private int id;
-    private List <LineItem> lineItems = new ArrayList<>();
+    private Date date;
+    private int userId;
+    private String status;
 
     private HashMap<String, String> customerData;
 
 
     public Order(int id) {
         this.id = id;
+        this.date = new Date();
+        this.status = "checked";
+    }
+
+    public Order(int id, int userId, Date date, String status) {
+        this.id = id;
+        this.date = date;
+        this.userId = userId;
+        this.status = status;
     }
 
     public int getId() {
@@ -26,24 +38,23 @@ public class Order {
         this.id = id;
     }
 
-    public List<LineItem> getLineItems() {
-        return lineItems;
-    }
-
-    // not sure if we need this
-    public void setLineItems(List<LineItem> lineItems) {
-        this.lineItems = lineItems;
-    }
-
-    public void addLineItem(LineItem lineItem){
-        lineItems.add(lineItem);
-    }
-
     public void setCustomerData(HashMap<String, String> customerData) {
         this.customerData = customerData;
     }
 
     public HashMap<String, String> getCustomerData() {
         return customerData;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

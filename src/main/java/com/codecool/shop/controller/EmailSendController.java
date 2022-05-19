@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.database_implementation.DatabaseManager;
+import com.codecool.shop.dao.implementation.LineItemDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.utils.HTMLEmailTemplate;
@@ -20,8 +23,13 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/send_email"})
 public class EmailSendController extends HttpServlet {
-    OrderDao orderDataStore = OrderDaoMem.getInstance();
-    OrderService orderservice = new OrderService(orderDataStore);
+    DatabaseManager databaseManager = DatabaseManager.getInstance();
+    OrderDao orderDataStore = databaseManager.getOrderDataStore();
+    LineItemDao lineItemDataStore = databaseManager.getLineItemDataStore();
+    OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
+
+    public EmailSendController() throws IOException {
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

@@ -1,13 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.database_implementation.DatabaseManager;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
@@ -29,16 +24,18 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-        OrderService orderservice = new OrderService(orderDataStore);
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ProductDao productDataStore = databaseManager.getProductDataStore();
+        ProductCategoryDao productCategoryDataStore = databaseManager.getProductCategoryDataStore();
+        SupplierDao supplierDataStore = databaseManager.getSupplierDataStore();
+        OrderDao orderDataStore = databaseManager.getOrderDataStore();
+        LineItemDao lineItemDataStore = databaseManager.getLineItemDataStore();
+        OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
 
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
         SupplierService supplierService = new SupplierService(supplierDataStore);
 
-        List<LineItem> items = orderservice.getLineItems(orderservice.getCurrentOrderId());
+        List<LineItem> items = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productService.getProductCategory(1));

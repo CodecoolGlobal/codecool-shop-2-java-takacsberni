@@ -77,9 +77,12 @@ public class SupplierDaoJdbc implements SupplierDao {
             String sql = "SELECT name, description FROM supplier";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Supplier> suppliers = new ArrayList<>();
+            int i = 1;
             while (rs.next()) { // while result set pointer is positioned before or on last row read authors
                 Supplier supplier = new Supplier(rs.getString(1), rs.getString(2));
+                supplier.setId(i);
                 suppliers.add(supplier);
+                i++;
             }
             return suppliers;
         } catch (SQLException e) {

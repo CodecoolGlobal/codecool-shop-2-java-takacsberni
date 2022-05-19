@@ -80,9 +80,13 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             String sql = "SELECT name, description, department FROM category";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<ProductCategory> categories = new ArrayList<>();
+            int i = 1;
             while (rs.next()) { // while result set pointer is positioned before or on last row read authors
                 ProductCategory category = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+                category.setId(i);
                 categories.add(category);
+                i++;
+
             }
             return categories;
         } catch (SQLException e) {

@@ -20,25 +20,82 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void add(Product product) {
-        try(Connection connection = dataSource.getConnection()){
-            String sql = "INSERT INTO product (name, description, default_price, currency, category_id, supplier_id) VALUES (?, ? ,?, ?, ? ,?)";
-            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, product.getName());
-            st.setString(2, product.getDescription());
-            st.setBigDecimal(3, product.getDefaultPrice());
-            st.setString(4, String.valueOf(product.getDefaultCurrency()));
-            st.setInt(5, product.getProductCategory().getId());
-            st.setInt(6, product.getSupplier().getId());
-            st.executeUpdate();
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding product", throwables);
+        String productName = product.getName();
+        int categoryId = getCategoryId(product.getProductCategory());
+        int supplierId = getSupplierId(product.getSupplier());
+        if(!find(productName)){
+            try(Connection connection = dataSource.getConnection()){
+                String sql = "INSERT INTO product (name, description, default_price, currency, category_id, supplier_id) VALUES (?, ? ,?, ?, ? ,?)";
+                PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                st.setString(1, productName);
+                st.setString(2, product.getDescription());
+                st.setBigDecimal(3, product.getDefaultPrice());
+                st.setString(4, String.valueOf(product.getDefaultCurrency()));
+                st.setInt(5, categoryId);
+                st.setInt(6, supplierId);
+                st.executeUpdate();
+            } catch (SQLException throwables) {
+                throw new RuntimeException("Error while adding product", throwables);
+            }
         }
+        else{
+            System.out.printf("Product %s already exists", productName);
+            System.out.println();
+        }
+    }
 
+    public int getCategoryId (ProductCategory category){
+        String categoryName = category.getName();
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT id FROM category WHERE name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, categoryName);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return 0;
+            }
+            return rs.getInt(1);
+
+        }
+        catch(SQLException throwables){
+            throw new RuntimeException("Error while getting category from database", throwables);
+        }
+    }
+
+    public int getSupplierId (Supplier supplier){
+        String supplierName = supplier.getName();
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT id FROM supplier WHERE name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, supplierName);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return 0;
+            }
+            return rs.getInt(1);
+
+        }
+        catch(SQLException throwables){
+            throw new RuntimeException("Error while getting category from database", throwables);
+        }
     }
 
     @Override
     public Product find(int id) {
         return null;
+    }
+
+    public boolean find(String productName){
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT id FROM product WHERE name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, productName);
+            ResultSet rs = st.executeQuery();
+            return rs.next();
+        }
+        catch(SQLException throwables){
+            throw new RuntimeException("Error while getting product:" + productName, throwables);
+        }
     }
 
     @Override

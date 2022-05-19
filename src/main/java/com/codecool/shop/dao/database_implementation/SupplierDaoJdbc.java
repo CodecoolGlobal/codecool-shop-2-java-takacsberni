@@ -17,14 +17,20 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        try(Connection connection = dataSource.getConnection()){
-            String sql = "INSERT INTO supplier (name, description) VALUES (?, ?)";
-            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, supplier.getName());
-            st.setString(2, supplier.getDescription());
-            st.executeUpdate();
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding supplier", throwables);
+        if(!find(supplier.getName())){
+            try(Connection connection = dataSource.getConnection()){
+                String sql = "INSERT INTO supplier (name, description) VALUES (?, ?)";
+                PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                st.setString(1, supplier.getName());
+                st.setString(2, supplier.getDescription());
+                st.executeUpdate();
+            } catch (SQLException throwables) {
+                throw new RuntimeException("Error while adding supplier", throwables);
+            }
+        }
+        else{
+            System.out.printf("Supplier %s already exists", supplier.getName());
+            System.out.println();
         }
     }
 
@@ -41,7 +47,20 @@ public class SupplierDaoJdbc implements SupplierDao {
             return new Supplier(rs.getString(1), rs.getString(2));
         }
         catch(SQLException e){
-            throw new RuntimeException("Error while reading supplier with id" + id, e);
+            throw new RuntimeException("Error while reading supplier with id " + id, e);
+        }
+    }
+
+    public boolean find(String supplierName){
+        try(Connection conn = dataSource.getConnection()){
+            String sql = "SELECT id FROM supplier WHERE name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, supplierName);
+            ResultSet rs = st.executeQuery();
+            return rs.next();
+        }
+        catch(SQLException throwables){
+            throw new RuntimeException("Error while getting supplier: " + supplierName, throwables);
         }
     }
 

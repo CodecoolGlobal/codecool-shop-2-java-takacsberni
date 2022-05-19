@@ -74,7 +74,6 @@ public class DatabaseManager {
 
     private Properties initializeProperties() throws IOException {
         Properties properties = new Properties();
-//        String root = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
         String root = new File(System.getProperty("user.dir")).getAbsolutePath();
         String configPath = root+"/src/main/resources/connection.properties";
         properties.load(new FileInputStream(configPath));

@@ -36,37 +36,37 @@
         <div class="form-group col-md-4 col-md-offset-5 align-center ">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="input" class="form-control" name="name" id="name" th:text="${name}">
+            <input type="input" class="form-control" name="name" id="name" th:value="${name}">
         </div>
         <div class="form-group">
             <label for="email_address">Email Address</label>
-            <input type="email" class="form-control" name="email_address" id="email_address" aria-describedby="emailHelp" th:text="${email}">
+            <input type="email" class="form-control" name="email_address" id="email_address" aria-describedby="emailHelp" th:value="${email}">
         </div>
         <div class="form-group">
             <label for="phone_number">Phone Number</label>
-            <input type="input" class="form-control" name="phone_number" id="phone_number" th:text="${phone}">
+            <input type="input" class="form-control" name="phone_number" id="phone_number" th:value="${phone}">
         </div>
         <div class="form-group">
             <h6>Billing Address</h6>
                 <label for="billing_country">Country</label>
-                <input type="input" class="form-control" name="billing_country" id="billing_country" th:text="${billing_country}">
+                <input type="input" class="form-control" name="billing_country" id="billing_country" th:value="${billing_country}">
                 <label for="billing_city">City</label>
-                <input type="input" class="form-control" name="billing_city" id="billing_city" th:text="${billing_city}">
+                <input type="input" class="form-control" name="billing_city" id="billing_city" th:value="${billing_city}">
                 <label for="billing_zipcode">Zipcode</label>
-                <input type="input" class="form-control" name="billing_zipcode" id="billing_zipcode" th:text="${billing_zipcode}">
+                <input type="input" class="form-control" name="billing_zipcode" id="billing_zipcode" th:value="${billing_zipcode}">
                 <label for="billing_address">Address</label>
-                <input type="input" class="form-control" name="billing_address" id="billing_address" th:text="${billing_address}">
+                <input type="input" class="form-control" name="billing_address" id="billing_address" th:value="${billing_address}">
             </div>
         <div class="form-group">
             <h6>Shipping Address</h6>
             <label for="billing_country">Country</label>
-            <input type="input" class="form-control" name="shipping_country" id="shipping_country" th:text="${shipping_country}">
+            <input type="input" class="form-control" name="shipping_country" id="shipping_country" th:value="${shipping_country}">
             <label for="billing_city">City</label>
-            <input type="input" class="form-control" name="shipping_city" id="shipping_city" th:text="${shipping_city}">
+            <input type="input" class="form-control" name="shipping_city" id="shipping_city" th:value="${shipping_city}">
             <label for="billing_zipcode">Zipcode</label>
-            <input type="input" class="form-control" name="shipping_zipcode" id="shipping_zipcode" th:text="${shipping_zipcode}">
+            <input type="input" class="form-control" name="shipping_zipcode" id="shipping_zipcode" th:value="${shipping_zipcode}">
             <label for="billing_address">Address</label>
-            <input type="input" class="form-control" name="shipping_address" id="shipping_address" th:text="${shipping_address}">
+            <input type="input" class="form-control" name="shipping_address" id="shipping_address" th:value="${shipping_address}">
         </div>
 
             <button type="submit" class="btn btn-primary">Go to Payment</button>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -30,6 +31,17 @@ public class LoginController extends HttpServlet {
         UserDao userDao = DatabaseManager.getInstance().getUserDao();
         UserService userService = new UserService(userDao);
         String email = req.getParameter("login_email");
+
+        try {
+            if (userDao.findByEmail(email) == null){
+                resp.sendRedirect(req.getContextPath()+"/login");
+            }
+            else {
+                resp.sendRedirect(req.getContextPath()+"/");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         HttpSession session = req.getSession();
         session.setAttribute("user", email);

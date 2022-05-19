@@ -9,5 +9,5 @@ import java.util.List;
 public interface UserDao {
     void add(User user) throws SQLException;
     User find(int id);
-    User findByEmail(String email);
+    User findByEmail(String email) throws SQLException;
 }

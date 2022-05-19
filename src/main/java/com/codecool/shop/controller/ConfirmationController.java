@@ -5,9 +5,11 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.database_implementation.DatabaseManager;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.User;
 import com.codecool.shop.service.OrderService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.SupplierService;
+import com.codecool.shop.service.UserService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -16,7 +18,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,11 +40,23 @@ public class ConfirmationController extends HttpServlet {
         OrderDao orderDataStore = databaseManager.getOrderDataStore();
         LineItemDao lineItemDataStore = databaseManager.getLineItemDataStore();
         OrderService orderservice = new OrderService(orderDataStore, lineItemDataStore);
+        UserDao userDao = DatabaseManager.getInstance().getUserDao();
+        UserService userService = new UserService(userDao);
 
         List<LineItem> items = orderservice.getLineItemsByOrder(orderservice.getCurrentOrderId());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        HashMap<String, String> customerData = orderservice.getOrderById(orderservice.getCurrentOrderId()).getCustomerData();
+
+        HttpSession session = req.getSession();
+        String email = (String) session.getAttribute("user");
+        HashMap<String, String> customerData = new HashMap<>();
+        try {
+            User user = userService.findUserByEmail(email);
+            customerData = userService.convertToHashMap(user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //HashMap<String, String> customerData = orderservice.getOrderById(orderservice.getCurrentOrderId()).getCustomerData();
         context.setVariable("all_categories", productService.getAllCategories());
         context.setVariable("all_suppliers", supplierService.getAllSuppliers());
         context.setVariable("items", items);

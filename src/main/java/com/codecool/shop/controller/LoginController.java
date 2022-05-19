@@ -38,6 +38,7 @@ public class LoginController extends HttpServlet {
         //TODO validátor:
         // if userService.loginSuccess(user) then - csináld a fentit, vigyél a főoldalra
         // else: resp.sendRedirect(req.getContextPath() + "/login"); - vidd vissza a login page-re
+        // a validator használhatná a findByEmailt és ha talál ilyet az adatbázisban, akkor visszaad egy true-t
 
     }
 

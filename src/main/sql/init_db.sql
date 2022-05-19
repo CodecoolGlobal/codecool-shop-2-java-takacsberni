@@ -6,8 +6,7 @@ CREATE TABLE public.product (
                                    default_price decimal(20,2) NOT NULL,
                                    currency text NOT NULL,
                                    category_id int NOT NULL,
-                                   supplier_id int NOT NULL,
-                                   image text NOT NULL
+                                   supplier_id int NOT NULL
 
 );
 

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Pet Shop</title>
+
+    <!-- JavaScript: main.js-->
+    <script defer src="/static/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/checkout_edit.css" />
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+
+<div>
+<form action="/checkout_cart" method="post">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="form-group col-md-4 col-md-offset-5 align-center ">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="input" class="form-control" name="name" id="name" th:value="${name}">
+        </div>
+        <div class="form-group">
+            <label for="email_address">Email Address</label>
+            <input type="email" class="form-control" name="email_address" id="email_address" aria-describedby="emailHelp" th:value="${email}">
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="input" class="form-control" name="phone_number" id="phone_number" th:value="${phone}">
+        </div>
+        <div class="form-group">
+            <h6>Billing Address</h6>
+                <label for="billing_country">Country</label>
+                <input type="input" class="form-control" name="billing_country" id="billing_country" th:value="${billing_country}">
+                <label for="billing_city">City</label>
+                <input type="input" class="form-control" name="billing_city" id="billing_city" th:value="${billing_city}">
+                <label for="billing_zipcode">Zipcode</label>
+                <input type="input" class="form-control" name="billing_zipcode" id="billing_zipcode" th:value="${billing_zipcode}">
+                <label for="billing_address">Address</label>
+                <input type="input" class="form-control" name="billing_address" id="billing_address" th:value="${billing_address}">
+            </div>
+        <div class="form-group">
+            <h6>Shipping Address</h6>
+            <label for="billing_country">Country</label>
+            <input type="input" class="form-control" name="shipping_country" id="shipping_country" th:value="${shipping_country}">
+            <label for="billing_city">City</label>
+            <input type="input" class="form-control" name="shipping_city" id="shipping_city" th:value="${shipping_city}">
+            <label for="billing_zipcode">Zipcode</label>
+            <input type="input" class="form-control" name="shipping_zipcode" id="shipping_zipcode" th:value="${shipping_zipcode}">
+            <label for="billing_address">Address</label>
+            <input type="input" class="form-control" name="shipping_address" id="shipping_address" th:value="${shipping_address}">
+        </div>
+
+            <button type="submit" class="btn btn-primary">Go to Payment</button>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+
+
+<div th:replace="footer.html :: copy"></div>
+
+
+</body>
+</html>

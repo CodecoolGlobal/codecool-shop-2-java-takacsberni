@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Pet Shop</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/confirmation.css" />
+    <!-- JavaScript: main.js-->
+    <script defer src="/static/js/main.js"></script>
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+
+
+<div class="container py-4">
+        <div class="order-details p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="font-8 order-confirmation">Order Confirmation</span>
+                <div class="d-flex align-items-center">
+                    <span> <small class="text-sm font-8">Order Total</small> <span class="fw-bold font-8" th:text="${full_price}">$5585.56</span> </span>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="card border-0 p-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center">
+                                    <span class="fw-bolder">Your information</span>
+                                </div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold" th:text="${name}">Ping Pong</span>
+                                </div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold" th:text="${email}">Ping Pong</span>
+                                </div>
+                                <div class="mt-2 height-100">
+                                    <span class="fw-bold" th:text="${phone}">Ping Pong</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center"><span class="fw-bolder">Shipping Address</span> </div>
+                                <div class="mt-2 height-100">
+                                    <p th:text="${shipping_address}"></p>
+                                    <p th:text="${shipping_zipcode}"></p>
+                                    <p th:text="${shipping_city}"></p>
+                                    <p th:text="${shipping_country}"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-between dotted-border pb-2 align-items-center"><span class="fw-bolder">Billing Address</span></div>
+                                <div class="mt-2 height-100">
+                                    <div class="mt-2 height-100">
+                                        <p th:text="${billing_address}"></p>
+                                        <p th:text="${billing_zipcode}"></p>
+                                        <p th:text="${billing_city}"></p>
+                                        <p th:text="${billing_country}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card table-responsive">
+                <table class="table table-borderless border-0" width="100%">
+                    <thead class="border-bottom">
+                    <tr>
+                        <th width="50%" class="text-center">Item</th>
+                        <th width="15%">Retailer</th>
+                        <th width="20%">Quantity</th>
+                        <th width="15%">Shipping</th>
+                        <th width="15%">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="item : ${items}">
+                    <tr>
+                        <td>
+                            <div class="p-1 d-flex flex-row">
+                                <div class="d-flex flex-column">
+                                    <span class="font-2" th:text="${item.getProductName()}">Yellow truck bag</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${item.getSupplier()}">Marni</td>
+                        <td th:text="${item.getQuantity()}"> 1 </td>
+                        <td>$15.00</td>
+                        <td th:text="${item.getProductPrice()}">$2160.00</td>
+                    </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div th:replace="footer.html :: copy"></div>
+</body>
+</html>

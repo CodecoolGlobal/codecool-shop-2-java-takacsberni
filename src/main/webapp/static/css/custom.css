@@ -1,0 +1,112 @@
+.glyphicon {
+    margin-right:5px;
+}
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.thumbnail img
+{
+    margin-top: 10px;
+}
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+
+#total_price{
+    background-color: dodgerblue;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+#itemNumber{
+    text-align: center;
+}
+
+.background {
+    background-image: url(https://cdn.shopify.com/s/files/1/0254/0417/8478/products/petit_monkey_tattoo_jungle_animals_tt04_b.jpg?v=1580902222);
+}
+
+.flex {
+    display: flex;
+    padding: 1em;
+}
+
+strong {
+    font-size: x-large;
+    padding: 2px;
+}
+
+body {
+    background: url(https://thumbs.dreamstime.com/b/abstract-exotic-plant-seamless-pattern-green-background-leaf-wallpaper-tropical-palm-leaves-floral-vector-illustration-161273523.jpg)
+}
+
+nav {
+    border: 7px solid black;
+}
+
+.dropdown {
+    font-size: larger;
+}
+
+img {
+    border-bottom: 1px grey;
+}
+
+.card {
+    border: 3px solid;
+}
+
+.card-header {
+    height: 10em;
+}
+
+
